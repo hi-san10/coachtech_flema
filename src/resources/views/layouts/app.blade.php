@@ -32,6 +32,16 @@
                 </defs>
                 </svg>
             </div>
+            <div class="search"></div>
+            <div class="header_nav">
+                @if(Auth::check())
+                <a href="">ログアウト</a>
+                @else
+                <a href="/login">ログイン</a>
+                @endif
+                <a href="">マイページ</a>
+                <a href="">出品</a>
+            </div>
         </header>
         @yield('content')
     </div>

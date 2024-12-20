@@ -8,7 +8,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('layouts.app');
+        return view('item_all');
     }
 
 }
