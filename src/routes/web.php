@@ -22,6 +22,6 @@ Route::get('/login', [LoginController::class, 'login_top']);
 
 Route::get('/register', [LoginController::class, 'register_top']);
 
-Route::post('/register', [LoginController::class, 'register']);
+Route::post('/register', [LoginController::class, 'store']);
 
 Route::get('/mypage/profile', [MyPageController::class, 'setting']);

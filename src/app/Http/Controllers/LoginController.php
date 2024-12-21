@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 
 class LoginController extends Controller
 {
@@ -18,7 +19,7 @@ class LoginController extends Controller
         return view('register');
     }
 
-    public function register(Request $request)
+    public function store(RegisterRequest $request)
     {
         User::create([
             'name' => $request->name,

@@ -13,18 +13,30 @@
             <div class="form-inner">
                 <p>ユーザー名</p>
                 <input type="text" name="name">
+                @error('name')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
             <div class="form-inner">
                 <p>メールアドレス</p>
                 <input type="email" name="email">
+                @error('email')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
             <div class="form-inner">
                 <p>パスワード</p>
                 <input type="password" name="password">
+                @error('password')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
             <div class="form-inner">
                 <p>確認用パスワード</p>
                 <input type="password" name="password_confirmation">
+                @error('password')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
             <div class="form-inner">
                 <button>登録する</button>
