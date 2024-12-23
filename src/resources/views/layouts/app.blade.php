@@ -35,9 +35,12 @@
             <div class="search"></div>
             <div class="header_nav">
                 @if(Auth::check())
-                <a href="">ログアウト</a>
+                <form action="/logout" method="post">
+                    @csrf
+                    <button>ログアウト</button>
+                </form>
                 @else
-                <a href="/login">ログイン</a>
+                <a href="/login_top">ログイン</a>
                 @endif
                 <a href="">マイページ</a>
                 <a href="">出品</a>

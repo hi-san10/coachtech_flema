@@ -18,7 +18,11 @@ use App\Http\Controllers\MyPageController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/login', [LoginController::class, 'login_top']);
+Route::get('/login_top', [LoginController::class, 'Login_top']);
+
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/register', [LoginController::class, 'register_top']);
 

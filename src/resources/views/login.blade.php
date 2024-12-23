@@ -8,16 +8,30 @@
 <div class="flema-login">
     <div class="login-content">
         <h1>ログイン</h1>
-        <div class="login-form">
-            <div class="form__inner">
-                <p></p>
+        <form action="/login" method="post">
+            @csrf
+            <div class="form-inner">
+                <p>ユーザー名/メールアドレス</p>
+                <input type="email" name="email">
+                @error('email')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
-            <div class="login-form">
-
+            <div class="form-inner">
+                <p>パスワード</p>
+                <input type="password" name="password">
+                @error('password')
+                <p>{{ $message }}</p>
+                @enderror
             </div>
-            <div class="login-form"></div>
+            @if(session('message'))
+            <p>{{ session('message') }}</p>
+            @endif
+            <div class="form-inner">
+                <button>ログインする</button>
+            </div>
+        </form>
             <a href="/register">会員登録はこちら</a>
-        </div>
     </div>
 </div>
 @endsection
