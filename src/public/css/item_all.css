@@ -1,0 +1,9 @@
+
+.item_all__item {
+    width: 25%;
+}
+
+.item__img {
+    width: 100%;
+    object-fit: cover;
+}

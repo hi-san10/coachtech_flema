@@ -5,4 +5,16 @@
 @endsection
 
 @section('content')
+<div class="flema-item_all">
+    <div class="item_all-content">
+        <div class="item_all__header">
+        </div>
+        @foreach($items as $item)
+        <div class="item_all__item">
+            <img src="{{ $item->image }}" alt="" class="item__img">
+            <a href="{{ route('item', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
+        </div>
+        @endforeach
+    </div>
+</div>
 @endsection

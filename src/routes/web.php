@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\ItemDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::get('/register', [LoginController::class, 'register_top']);
 Route::post('/register', [LoginController::class, 'store']);
 
 Route::get('/mypage/profile', [MyPageController::class, 'setting']);
+
+Route::get('/item/{item_id}', [ItemDetailController::class, 'item'])->name('item');
