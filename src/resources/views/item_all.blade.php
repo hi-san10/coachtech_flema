@@ -12,7 +12,7 @@
         @foreach($items as $item)
         <div class="item_all__item">
             <img src="{{ $item->image }}" alt="" class="item__img">
-            <a href="{{ route('item', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
+            <a href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
         </div>
         @endforeach
     </div>

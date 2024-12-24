@@ -31,4 +31,4 @@ Route::post('/register', [LoginController::class, 'store']);
 
 Route::get('/mypage/profile', [MyPageController::class, 'setting']);
 
-Route::get('/item/{item_id}', [ItemDetailController::class, 'item'])->name('item');
+Route::get('/item/{item_id}', [ItemDetailController::class, 'item_detail'])->name('item_detail');
