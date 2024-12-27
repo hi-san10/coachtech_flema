@@ -1,4 +1,4 @@
-@extends('layouts/app')
+@extends('layouts/register_header')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
@@ -11,38 +11,38 @@
         <form action="/register" method="post">
             @csrf
             <div class="form-inner">
-                <p>ユーザー名</p>
+                <p class="inner__txt">ユーザー名</p>
                 <input type="text" name="name">
                 @error('name')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
-                <p>メールアドレス</p>
+                <p class="inner__txt">メールアドレス</p>
                 <input type="email" name="email">
                 @error('email')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
-                <p>パスワード</p>
+                <p class="inner__txt">パスワード</p>
                 <input type="password" name="password">
                 @error('password')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
-                <p>確認用パスワード</p>
+                <p class="inner__txt">確認用パスワード</p>
                 <input type="password" name="password_confirmation">
                 @error('password')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
                 <button>登録する</button>
             </div>
         </form>
-        <a href="/login_top">ログインはこちら</a>
+        <a class="login__link" href="/login_top">ログインはこちら</a>
     </div>
 </div>
 @endsection
