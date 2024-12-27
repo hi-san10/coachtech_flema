@@ -44,7 +44,7 @@
                     <button class="nav__btn logout__btn">ログアウト</button>
                 </form>
                 @else
-                <a class="nav__btn" href="/login_top">ログイン</a>
+                <a class="nav__btn" href="/login">ログイン</a>
                 @endif
                 <a class="nav__btn" href="">マイページ</a>
                 <a class="nav__btn--box" href=""><span>出品</span></a>
