@@ -19,7 +19,7 @@ use App\Http\Controllers\ItemDetailController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-Route::get('/login_top', [LoginController::class, 'Login_top']);
+Route::get('/login_top', [LoginController::class, 'login_top']);
 
 Route::post('/login', [LoginController::class, 'login']);
 

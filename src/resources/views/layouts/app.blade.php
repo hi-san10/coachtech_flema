@@ -32,18 +32,22 @@
                 </defs>
                 </svg>
             </div>
-            <div class="search"></div>
-            <div class="header_nav">
+            <div class="search">
+                <form class="search__form" action="">
+                    <input class="search__form-word" type="text" name="search_item" placeholder="     なにをお探しですか？">
+                </form>
+            </div>
+            <div class="header__nav">
                 @if(Auth::check())
                 <form action="/logout" method="post">
                     @csrf
-                    <button>ログアウト</button>
+                    <button class="nav__btn logout__btn">ログアウト</button>
                 </form>
                 @else
-                <a href="/login_top">ログイン</a>
+                <a class="nav__btn" href="/login_top">ログイン</a>
                 @endif
-                <a href="">マイページ</a>
-                <a href="">出品</a>
+                <a class="nav__btn" href="">マイページ</a>
+                <a class="nav__btn--box" href=""><span>出品</span></a>
             </div>
         </header>
         @yield('content')
