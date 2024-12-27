@@ -42,7 +42,7 @@
                 <button>登録する</button>
             </div>
         </form>
-        <a href="/login">ログインはこちら</a>
+        <a href="/login_top">ログインはこちら</a>
     </div>
 </div>
 @endsection

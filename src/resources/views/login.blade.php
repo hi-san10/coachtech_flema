@@ -11,17 +11,17 @@
         <form action="/login" method="post">
             @csrf
             <div class="form-inner">
-                <p>ユーザー名/メールアドレス</p>
+                <p class="inner__txt">ユーザー名/メールアドレス</p>
                 <input type="email" name="email">
                 @error('email')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
-                <p>パスワード</p>
+                <p class="inner__txt">パスワード</p>
                 <input type="password" name="password">
                 @error('password')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             @if(session('message'))
@@ -31,7 +31,7 @@
                 <button>ログインする</button>
             </div>
         </form>
-            <a href="/register">会員登録はこちら</a>
+            <a class="register__link" href="/register">会員登録はこちら</a>
     </div>
 </div>
 @endsection
