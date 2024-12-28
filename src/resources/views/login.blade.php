@@ -8,6 +8,9 @@
 <div class="flema-login">
     <div class="login-content">
         <h1>ログイン</h1>
+        @if(session('verify_message'))
+        <div class="session__message">{{ session('verify_message') }}</div>
+        @endif
         <form action="/login" method="post">
             @csrf
             <div class="form-inner">
@@ -25,7 +28,7 @@
                 @enderror
             </div>
             @if(session('message'))
-            <p>{{ session('message') }}</p>
+            <div class="session__message">{{ session('message') }}</div>
             @endif
             <div class="form-inner">
                 <button>ログインする</button>

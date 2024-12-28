@@ -32,3 +32,5 @@ Route::post('/register', [LoginController::class, 'store']);
 Route::get('/mypage/profile', [MyPageController::class, 'setting']);
 
 Route::get('/item/{item_id}', [ItemDetailController::class, 'item_detail'])->name('item_detail');
+
+Route::get('/verify/{email}', [LoginController::class, 'verify'])->name('verify');

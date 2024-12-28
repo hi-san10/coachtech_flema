@@ -53,3 +53,9 @@
     font-size: 16px;
     margin-top: 10px;
 }
+
+.session__message {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
