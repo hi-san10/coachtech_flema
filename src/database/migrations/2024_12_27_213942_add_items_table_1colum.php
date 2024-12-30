@@ -14,7 +14,7 @@ class AddItemsTable1colum extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->integer('is_sold')->comment('1=sold')->after('detail');
+            $table->integer('is_sold')->default(0)->comment('1=sold')->after('detail');
         });
     }
 
