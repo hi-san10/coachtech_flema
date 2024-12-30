@@ -52,10 +52,14 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
+        $email_verified_at = $user->email_verified_at;
 
         if(is_null($user))
         {
             return back()->with('message', 'ログイン情報が登録されていません。');
+        }elseif(is_null($email_verified_at))
+        {
+            return back()->with('message', 'ユーザー認証がお済みではありません');
         }
 
         $credentials = ([
