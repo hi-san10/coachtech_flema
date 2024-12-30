@@ -14,7 +14,6 @@ class Item extends Model
         'name',
         'price',
         'detail',
-        'condition',
         'image',
         'storage_image'
     ];
