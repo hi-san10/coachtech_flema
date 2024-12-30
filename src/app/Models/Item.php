@@ -13,8 +13,15 @@ class Item extends Model
         'user_id',
         'name',
         'price',
+        'brand_name',
         'detail',
+        'is_sold',
         'image',
         'storage_image'
     ];
+
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
 }

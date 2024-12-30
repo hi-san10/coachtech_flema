@@ -13,7 +13,11 @@
         <div class="inner__detail">
             <div class="detail__name-price">
                 <h1>{{ $item->name }}</h1>
-                <p>ブランド名</p>
+                @if(is_null($item->brand_name))
+                <p>ブランド不明</p>
+                @else
+                <p>{{ $item->brand_name }}</p>
+                @endif
                 <p>¥{{ $item->price }}(税込)</p>
             </div>
             <div class="explanation">
@@ -25,7 +29,7 @@
             <div class="detail__info">
                 <h2>商品の情報</h2>
                 <p>カテゴリー</p>
-                <p>商品の状態<span>{{ $item->condition }}</span></p>
+                <p>商品の状態<span>{{ $item->condition->condition }}</span></p>
             </div>
             <div class="detail__comment">
                 <h2>コメント()</h2>
