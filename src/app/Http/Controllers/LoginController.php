@@ -11,6 +11,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyMail;
 use Carbon\CarbonImmutable;
+use App\Models\Profile;
 
 class LoginController extends Controller
 {
@@ -52,6 +53,7 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
+        $user_id = $user->id;
         $email_verified_at = $user->email_verified_at;
 
         if(is_null($user))
@@ -70,7 +72,13 @@ class LoginController extends Controller
         Auth::attempt($credentials);
         $request->session()->regenerate();
 
-        return redirect('/');
+        if(Profile::find($user_id))
+        {
+            return redirect('/');
+        }
+
+        return redirect('/mypage/profile');
+
     }
 
     public function logout(Request $request)

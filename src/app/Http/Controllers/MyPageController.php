@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class MyPageController extends Controller
 {
-    public function setting()
+    public function setting(Request $request)
     {
         return view('profile_setting');
     }
