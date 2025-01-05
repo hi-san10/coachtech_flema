@@ -24,4 +24,9 @@ class Item extends Model
     {
         return $this->belongsTo(Condition::class);
     }
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

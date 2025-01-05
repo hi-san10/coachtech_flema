@@ -15,10 +15,9 @@ class ItemController extends Controller
 
     public function item_detail(Request $request)
     {
-        // $item = Item::find($request->item_id)->first();
-        $item = Item::with('condition')->whereId($request->item_id)->first();
-        // dd($item->condition->condition);
-        return view('item', compact('item'));
+        $item = Item::with('condition', 'category')->whereId($request->item_id)->first();
+        $categories = $item->category->all();
+        return view('item', compact('item', 'categories'));
     }
 
 }

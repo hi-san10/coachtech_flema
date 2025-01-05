@@ -29,6 +29,9 @@
             <div class="detail__info">
                 <h2>商品の情報</h2>
                 <p>カテゴリー</p>
+                @foreach($categories as $category)
+                <span>{{ $category->name }}</span>
+                @endforeach
                 <p>商品の状態<span>{{ $item->condition->condition }}</span></p>
             </div>
             <div class="detail__comment">
