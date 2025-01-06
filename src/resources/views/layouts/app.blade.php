@@ -43,10 +43,11 @@
                     @csrf
                     <button class="nav__btn logout__btn">ログアウト</button>
                 </form>
+                <a class="nav__btn" href="{{ route('mypage', ['id' => Auth::id()]) }}">マイページ</a>
                 @else
                 <a class="nav__btn" href="/login">ログイン</a>
-                @endif
                 <a class="nav__btn" href="">マイページ</a>
+                @endif
                 <a class="nav__btn--box" href=""><span>出品</span></a>
             </div>
         </header>

@@ -11,9 +11,15 @@ class MyPageController extends Controller
 {
     public function setting(Request $request)
     {
-        $image = Profile::all();
-        // dd($image);
-        return view('profile_setting', compact('image'));
+        $profile_id = Profile::where('user_id', Auth::id())->exists();
+
+        if(!$profile_id)
+        {
+            return view('profile_setting', compact('profile_id'));
+        }
+
+        $profile = Profile::where('user_id', Auth::id())->first();
+        return view('profile_setting', compact('profile_id', 'profile'));
     }
 
     public function set_up(Request $request)
@@ -30,6 +36,30 @@ class MyPageController extends Controller
             'building_name' => $request->building_name,
             'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
-        return redirect('/mypage/profile');
+        return redirect('/');
+    }
+
+    public function mypage(Request $request)
+    {
+        $user = Profile::where('user_id', $request->id)->first();
+
+        return view('mypage', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $file_extension = $request->file('image')->getClientOriginalExtension();
+
+        $user_image = $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
+
+        Profile::where('user_id', Auth::id())->update([
+            'name' => $request->user_name,
+            'post_code' => $request->post_code,
+            'address' => $request->address,
+            'building_name' => $request->building_name,
+            'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
+        ]);
+
+        return redirect()->route('setting');
     }
 }

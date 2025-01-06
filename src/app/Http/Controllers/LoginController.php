@@ -72,12 +72,12 @@ class LoginController extends Controller
         Auth::attempt($credentials);
         $request->session()->regenerate();
 
-        if(Profile::find($user_id))
+        if(Profile::where('user_id', $user_id)->exists())
         {
             return redirect('/');
         }
 
-        return redirect('/mypage/profile');
+        return redirect()->route('setting');
 
     }
 
