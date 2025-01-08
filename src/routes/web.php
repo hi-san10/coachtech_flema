@@ -39,3 +39,7 @@ Route::post('/mypage/set_up', [MyPageController::class, 'set_up']);
 Route::get('/mypage/{id}', [MyPageController::class, 'mypage'])->name('mypage');
 
 Route::patch('/mypage/update', [MyPageController::class, 'update']);
+
+Route::get('/sell', [ItemController::class, 'sell_top']);
+
+Route::post('/sell/store', [ItemController::class, 'sell'])->name('sell');

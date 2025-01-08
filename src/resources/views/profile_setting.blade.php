@@ -14,6 +14,7 @@
         <div class="profile_setting-content">
             <h1>プロフィール設定</h1>
             <div class="content__image">
+                <img src="{{ asset($profile->image) }}" alt="">
                 <input type="file" name="image">
             </div>
             <div class="content__item">

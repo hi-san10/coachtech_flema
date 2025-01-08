@@ -48,7 +48,7 @@
                 <a class="nav__btn" href="/login">ログイン</a>
                 <a class="nav__btn" href="">マイページ</a>
                 @endif
-                <a class="nav__btn--box" href=""><span>出品</span></a>
+                <a class="nav__btn--box" href="/sell"><span>出品</span></a>
             </div>
         </header>
         @yield('content')
