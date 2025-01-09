@@ -14,11 +14,17 @@
         <div class="item_all__item">
             <img src="{{ $item->image }}" alt="" class="item__img">
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
+            @if($item->is_sold == 1)
+            <p class="sold">sold</p>
+            @endif
         </div>
         @else
         <div class="item_all__item">
             <img src="{{ asset($item->storage_image) }}" alt="" class="item__img">
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
+            @if($item->is_sold == 1)
+            <p class="sold">sold</p>
+            @endif
         </div>
         @endif
         @endforeach

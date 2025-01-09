@@ -8,6 +8,7 @@
     height: 300px;
     margin: auto;
     margin-top: 50px;
+    position: relative;
 }
 
 .item__img {
@@ -15,6 +16,15 @@
     height: 90%;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.sold {
+    color: red;
+    margin: 0;
+    font-size: 100px;
+    position: absolute;
+    top: 60px;
+    left: 48px;
 }
 
 .item_name {

@@ -12,7 +12,14 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::select('id', 'name', 'image', 'storage_image')->get();
+        if(Auth::check())
+        {
+            $id = Auth::id();
+            $items = Item::where('user_id', '!=', Auth::id())->get();
+            return view('item_all', compact('items'));
+        }
+
+        $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->get();
         return view('item_all', compact('items'));
     }
 
