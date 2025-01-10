@@ -19,6 +19,12 @@
                 <p>{{ $item->brand_name }}</p>
                 @endif
                 <p>¥{{ $item->price }}(税込)</p>
+                @if(Auth::check())
+                <a href="{{ route('nice', ['item_id' => $item->id]) }}">いいね</a>
+                @else
+                <p>いいね</p>
+                @endif
+                <span>{{ $nice }}</span>
             </div>
             <div class="explanation">
                 <h2>商品説明</h2>

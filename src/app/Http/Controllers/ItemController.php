@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Nice;
 
 class ItemController extends Controller
 {
@@ -27,7 +28,8 @@ class ItemController extends Controller
     {
         $item = Item::with('condition', 'category')->whereId($request->item_id)->first();
         $categories = $item->category->all();
-        return view('item', compact('item', 'categories'));
+        $nice = Nice::where('item_id', $request->item_id)->count();
+        return view('item', compact('item', 'categories', 'nice'));
     }
 
     public function sell_top()
@@ -40,7 +42,6 @@ class ItemController extends Controller
     public function sell(Request $request)
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
-
         $item_image = $request->file('image')->storeAs('public/item_images', 'user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension);
 
         $item = Item::create([

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\NiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,5 @@ Route::patch('/mypage/update', [MyPageController::class, 'update']);
 Route::get('/sell', [ItemController::class, 'sell_top']);
 
 Route::post('/sell/store', [ItemController::class, 'sell'])->name('sell');
+
+Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
