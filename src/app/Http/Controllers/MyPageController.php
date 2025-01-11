@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MyPageController extends Controller
 {
@@ -48,6 +49,25 @@ class MyPageController extends Controller
 
     public function update(Request $request)
     {
+        $user = Profile::where('user_id', Auth::id())->first();
+
+        if(!$request->file('image'))
+        {
+            $user->update([
+                'name' => $request->user_name,
+                'post_code' => $request->post_code,
+                'address' => $request->address,
+                'building_name' => $request->building_name,
+                'image' => $user->image
+            ]);
+
+            return redirect('/');
+        }
+
+        $user_image = $user->image;
+        $path = substr($user_image, 20, 50);
+        Storage::disk('public')->delete('user_images/'.$path);
+
         $file_extension = $request->file('image')->getClientOriginalExtension();
 
         $user_image = $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
@@ -60,6 +80,6 @@ class MyPageController extends Controller
             'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
 
-        return redirect()->route('setting');
+        return redirect('/');
     }
 }
