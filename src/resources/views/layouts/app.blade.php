@@ -46,7 +46,7 @@
                 <a class="nav__btn" href="{{ route('mypage', ['id' => Auth::id()]) }}">マイページ</a>
                 @else
                 <a class="nav__btn" href="/login">ログイン</a>
-                <a class="nav__btn" href="">マイページ</a>
+                <a class="nav__btn" href="{{ route('login') }}">マイページ</a>
                 @endif
                 <a class="nav__btn--box" href="/sell"><span>出品</span></a>
             </div>
