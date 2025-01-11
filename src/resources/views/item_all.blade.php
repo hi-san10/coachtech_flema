@@ -7,6 +7,11 @@
 @section('content')
 <div class="flema-item_all">
     <div class="item_all-content">
+        <div class="session__txt">
+            @if(session('sell_message'))
+            <p class="sell_message">{{ session('sell_message') }}</p>
+            @endif
+        </div>
         <div class="item_all__header">
         </div>
         @foreach($items as $item)

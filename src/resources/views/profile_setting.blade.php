@@ -14,24 +14,24 @@
         <div class="profile_setting-content">
             <h1>プロフィール設定</h1>
             <div class="content__image">
-                <img src="{{ asset($profile->image) }}" alt="">
+                <img src="{{ asset($profile->image) }}" alt="" value="{{ asset($profile->image) }}">
                 <input type="file" name="image">
             </div>
             <div class="content__item">
                 <p>ユーザー名</p>
-                <input type="text" name="user_name" placeholder="{{ $profile->name }}">
+                <input type="text" name="user_name" placeholder="{{ $profile->name }}" value="{{ $profile->name }}">
             </div>
             <div class="content__item">
                 <p>郵便番号</p>
-                <input type="text" name="post_code" placeholder="{{ $profile->post_code }}">
+                <input type="text" name="post_code" placeholder="{{ $profile->post_code }}" value="{{ $profile->post_code }}">
             </div>
             <div class="content__item">
                 <p>住所</p>
-                <input type="text" name="address" placeholder="{{ $profile->address }}">
+                <input type="text" name="address" placeholder="{{ $profile->address }}" value="{{ $profile->address }}">
             </div>
             <div class="content__item">
                 <p>建物名</p>
-                <input type="text" name="building_name" placeholder="{{ $profile->building_name }}">
+                <input type="text" name="building_name" placeholder="{{ $profile->building_name }}" value="{{ $profile->building_name }}">
             </div>
             <div class="content__submit">
                 <button>更新する</button>

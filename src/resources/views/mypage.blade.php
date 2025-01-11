@@ -9,7 +9,7 @@
         <div class="mypage-user">
             <div class="user__image">
                 <img src="{{ asset($user->image) }}" alt="">
-                <h1>ユーザー名</h1>
+                <h1>{{ $user->name }}</h1>
                 <a href="{{ route('setting', ['id' => Auth::id()]) }}">プロフィールを編集</a>
             </div>
         </div>

@@ -57,7 +57,7 @@ class ItemController extends Controller
         $items = Item::where('user_id', Auth::id())->latest('id')->first();
         $items->category()->sync($request->categories);
 
-        return redirect('/sell');
+        return redirect('/')->with('sell_message', '商品の出品が完了しました');
     }
 
 }
