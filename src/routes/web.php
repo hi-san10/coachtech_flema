@@ -20,7 +20,7 @@ Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name(
 
 Route::group(['middleware' => 'auth'], function()
 {
-    Route::get('/mypage/{id}', [MyPageController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage/{id?}', [MyPageController::class, 'mypage'])->name('mypage');
 
     Route::get('/sell', [ItemController::class, 'sell_top']);
 });

@@ -45,6 +45,13 @@ class MyPageController extends Controller
 
     public function mypage(Request $request)
     {
+        $profile = Profile::where('user_id', $request->id)->exists();
+
+        if(!$profile)
+        {
+            return redirect('/mypage/profile');
+        }
+
         $user = Profile::where('user_id', $request->id)->first();
 
         return view('mypage', compact('user'));

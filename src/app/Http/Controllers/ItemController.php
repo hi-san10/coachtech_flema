@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Condition;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Nice;
+use App\Models\Profile;
 
 class ItemController extends Controller
 {
@@ -34,6 +35,12 @@ class ItemController extends Controller
 
     public function sell_top()
     {
+        $profile = Profile::where('user_id', Auth::id())->exists();
+        if(!$profile)
+        {
+            return redirect('/mypage/profile');
+        }
+
         $categories = Category::all();
         $conditions = Condition::all();
         return view('sell', compact('categories', 'conditions'));
