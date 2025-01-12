@@ -3,6 +3,19 @@
     flex-wrap: wrap;
 }
 
+.item_all__header {
+    width: 100%;
+}
+
+.header-list__link {
+    text-decoration: none;
+    color: black;
+}
+
+.header__border {
+    border-bottom: 1px black solid;
+}
+
 .item_all__item {
     width: 300px;
     height: 300px;

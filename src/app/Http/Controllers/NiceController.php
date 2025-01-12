@@ -10,7 +10,7 @@ class NiceController extends Controller
 {
     public function nice(Request $request)
     {
-        $nice = Nice::where('user_id', Auth::id())->exists();
+        $nice = Nice::where('user_id', Auth::id())->where('item_id', $request->item_id)->exists();
         if(!$nice)
         {
             Nice::create([
@@ -19,7 +19,7 @@ class NiceController extends Controller
             ]);
             return back();
         }
-        Nice::where('user_id', Auth::id())->delete();
+        Nice::where('user_id', Auth::id())->where('item_id', $request->item_id)->delete();
         return back();
 
     }

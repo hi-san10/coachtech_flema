@@ -48,3 +48,7 @@ Route::patch('/mypage/update', [MyPageController::class, 'update']);
 Route::post('/sell/store', [ItemController::class, 'sell'])->name('sell');
 
 Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
+
+Route::get('/{id?}', [MyPageController::class, 'mylist'])->name('mylist');
+
+Route::get('list_none', [MyPageController::class, 'list_none'])->name('list_none');
