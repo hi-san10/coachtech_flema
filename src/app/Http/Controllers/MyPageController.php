@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Nice;
 use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\AddressRequest;
 
 class MyPageController extends Controller
 {

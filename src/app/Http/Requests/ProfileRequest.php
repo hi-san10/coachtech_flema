@@ -24,10 +24,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['required', 'image'],
-            'user_name' => ['required'],
-            'post_code' => ['required', 'regex:/^[0-9]{3}-[0-9]{4}$/'],
-            'address' => ['required']
+            'image' => ['required', 'mimes:jpeg, png'],
         ];
     }
 
@@ -35,11 +32,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'image.required' => '画像を選択してください',
-            'image.image' => '画像はjpg、png、bmp、gif、svgファイルを選択してください',
-            'user_name.required' => 'ユーザー名を入力してください',
-            'post_code.required' => '郵便番号を入力してください',
-            'post_code.regex' => '郵便番号はハイフンありの7文字で入力してください',
-            'address.required' => '住所を入力してください'
+            'image.mimes' => '画像はjpgもしくはpngファイルを選択してください',
         ];
     }
 }
