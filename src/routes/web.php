@@ -16,6 +16,8 @@ use App\Http\Controllers\NiceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
+
 Route::group(['middleware' => 'auth'], function()
 {
     Route::get('/mypage/{id}', [MyPageController::class, 'mypage'])->name('mypage');
@@ -34,8 +36,6 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [LoginController::class, 'register_top']);
 
 Route::post('/register', [LoginController::class, 'store']);
-
-Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
 
 Route::get('/item/{item_id}', [ItemController::class, 'item_detail'])->name('item_detail');
 

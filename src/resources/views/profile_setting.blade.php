@@ -46,18 +46,30 @@
             <h1>プロフィール設定</h1>
             <div class="content__image">
                 <input type="file" name="image">
+                @error('image')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p>ユーザー名</p>
                 <input type="text" name="user_name">
+                @error('user_name')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p>郵便番号</p>
                 <input type="text" name="post_code">
+                @error('post_code')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p>住所</p>
                 <input type="text" name="address">
+                @error('address')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p>建物名</p>

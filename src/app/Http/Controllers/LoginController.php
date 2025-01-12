@@ -77,7 +77,7 @@ class LoginController extends Controller
             return redirect('/');
         }
 
-        return redirect()->route('setting');
+        return redirect('mypage/profile');
 
     }
 

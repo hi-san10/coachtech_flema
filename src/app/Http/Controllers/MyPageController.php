@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Nice;
+use App\Http\Requests\ProfileRequest;
 
 class MyPageController extends Controller
 {
@@ -25,7 +26,7 @@ class MyPageController extends Controller
         return view('profile_setting', compact('profile_id', 'profile'));
     }
 
-    public function set_up(Request $request)
+    public function set_up(ProfileRequest $request)
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
 
