@@ -34,7 +34,7 @@
             <div class="form-inner">
                 <p class="inner__txt">確認用パスワード</p>
                 <input type="password" name="password_confirmation">
-                @error('password')
+                @error('password_confirmation')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
