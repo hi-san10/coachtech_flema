@@ -35,7 +35,7 @@ class AddressRequest extends FormRequest
         return [
             'user_name.required' => 'ユーザー名を入力してください',
             'post_code.required' => '郵便番号を入力してください',
-            'post_code.regex' => '郵便番号はハイフンありの7文字で入力してください',
+            'post_code.regex' => '郵便番号はハイフンありの数字7文字で入力してください',
             'address.required' => '住所を入力してください'
         ];
     }

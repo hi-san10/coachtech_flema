@@ -24,6 +24,9 @@
             <div class="content__item">
                 <p>郵便番号</p>
                 <input type="text" name="post_code" placeholder="{{ $profile->post_code }}" value="{{ $profile->post_code }}">
+                @error('post_code')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p>住所</p>

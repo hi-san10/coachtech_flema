@@ -59,7 +59,7 @@ class MyPageController extends Controller
         return view('mypage', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(AddressRequest $request)
     {
         $user = Profile::where('user_id', Auth::id())->first();
 
@@ -77,7 +77,7 @@ class MyPageController extends Controller
         }
 
         $user_image = $user->image;
-        $path = substr($user_image, 20, 50);
+        $path = substr($user_image, 20);
         Storage::disk('public')->delete('user_images/'.$path);
 
         $file_extension = $request->file('image')->getClientOriginalExtension();
