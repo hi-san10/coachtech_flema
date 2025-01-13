@@ -52,3 +52,5 @@ Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
 Route::get('/{id?}', [MyPageController::class, 'mylist'])->name('mylist');
 
 Route::get('list_none', [MyPageController::class, 'list_none'])->name('list_none');
+
+Route::post('/item/comment/{item_id}', [MyPageController::class, 'comment'])->name('comment');

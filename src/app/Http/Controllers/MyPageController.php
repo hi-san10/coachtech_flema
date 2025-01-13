@@ -11,6 +11,7 @@ use App\Models\Item;
 use App\Models\Nice;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
+use App\Models\Comment;
 
 class MyPageController extends Controller
 {
@@ -104,5 +105,23 @@ class MyPageController extends Controller
     public function list_none()
     {
         return view('list_none');
+    }
+
+    public function comment(Request $request)
+    {
+        $comment = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $request->item_id)->exists();
+
+        if($comment)
+        {
+            return back()->with('message', 'コメント済みです');
+        }
+
+        Comment::create([
+            'user_id' => Auth::id(),
+            'item_id' => $request->item_id,
+            'comment' => $request->comment
+        ]);
+
+        return back();
     }
 }

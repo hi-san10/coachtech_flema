@@ -41,7 +41,37 @@
                 <p>商品の状態<span>{{ $item->condition->condition }}</span></p>
             </div>
             <div class="detail__comment">
-                <h2>コメント()</h2>
+                <h2>コメント({{ $comment_count }})</h2>
+                @if($user)
+                <div class="user-info">
+                    @if($comment)
+                    <img src="{{ asset($user->image) }}" alt="" class="user-info__img">
+                    <p class="user-info__name">{{ $user->name }}</p>
+                    <p class="user-info__comment">{{ $comment_user->comment }}</p>
+                    @else
+                    <img src="" alt="" class="user-info__img">
+                    <p class="user-info__name"></p>
+                    <p class="user-info__comment"></p>
+                    @endif
+                </div>
+                <form action="{{ route('comment', ['item_id' => $item->id]) }}" method="post" class="comment__form">
+                    @csrf
+                    <div class="form__inner">
+                        <p>商品へのコメント</p>
+                        <textarea name="comment" id=""></textarea>
+                        @if(session('message'))
+                        <p>{{ session('message') }}</p>
+                        @endif
+                        <button>コメントを送信する</button>
+                    </div>
+                </form>
+                @else
+                <div class="user-info">
+                    <img src="" alt="" class="user-info__img">
+                    <p class="user-info__name"></p>
+                    <p class="user-info__comment"></p>
+                </div>
+                @endif
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ use App\Models\Condition;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Nice;
 use App\Models\Profile;
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -27,10 +28,25 @@ class ItemController extends Controller
 
     public function item_detail(Request $request)
     {
-        $item = Item::with('condition', 'category')->whereId($request->item_id)->first();
+        $item_id = $request->item_id;
+        $item = Item::with('condition', 'category')->whereId($item_id)->first();
+
         $categories = $item->category->all();
-        $nice = Nice::where('item_id', $request->item_id)->count();
-        return view('item', compact('item', 'categories', 'nice'));
+
+        $nice = Nice::where('item_id', $item_id)->count();
+
+        $comment = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $item_id)->exists();
+        $comment_user = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $item_id)->first();
+        $comment_count = Comment::where('item_id', $item_id)->count();
+
+        $user = Profile::where('user_id', Auth::id())->first();
+        // if($user)
+        // {
+        //     $user_img = $user->image;
+
+        //     return view('item', compact('item', 'categories', 'nice', 'comment', 'comment_user', 'comment_count','user', 'user_img'));
+        // }
+        return view('item', compact('item', 'categories', 'nice', 'comment', 'comment_user', 'comment_count', 'user'));
     }
 
     public function sell_top()
