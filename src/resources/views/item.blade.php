@@ -25,7 +25,10 @@
                 <p>いいね</p>
                 @endif
                 <span>{{ $nice }}</span>
+                <p>コメント</p>
+                <span>{{ $comment_count }}</span>
             </div>
+            <a href="{{ route('purchase_top', ['item_id' => $item->id]) }}" class="purchase__link">購入手続きへ</a>
             <div class="explanation">
                 <h2>商品説明</h2>
                 <p>カラー : グレー</p>

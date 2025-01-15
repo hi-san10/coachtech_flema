@@ -40,12 +40,7 @@ class ItemController extends Controller
         $comment_count = Comment::where('item_id', $item_id)->count();
 
         $user = Profile::where('user_id', Auth::id())->first();
-        // if($user)
-        // {
-        //     $user_img = $user->image;
 
-        //     return view('item', compact('item', 'categories', 'nice', 'comment', 'comment_user', 'comment_count','user', 'user_img'));
-        // }
         return view('item', compact('item', 'categories', 'nice', 'comment', 'comment_user', 'comment_count', 'user'));
     }
 
@@ -81,6 +76,19 @@ class ItemController extends Controller
         $items->category()->sync($request->categories);
 
         return redirect('/')->with('sell_message', '商品の出品が完了しました');
+    }
+
+    public function purchase_top(Request $request)
+    {
+        $item = Item::find($request->item_id)->first();
+        $user = Profile::where('user_id', Auth::id())->first();
+
+        if(is_null($user))
+        {
+            return back();
+        }
+
+        return view('purchase', compact('item', 'user'));
     }
 
 }
