@@ -53,17 +53,14 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
-        $user_id = $user->id;
-        $email_verified_at = $user->email_verified_at;
 
         if(is_null($user))
         {
             return back()->with('message', 'ログイン情報が登録されていません。');
-        }elseif(is_null($email_verified_at))
+        }elseif(is_null($user->email_verified_at))
         {
             return back()->with('message', 'ユーザー認証がお済みではありません');
         }
-
         $credentials = ([
             'email' => $request->email,
             'password' => $request->password
@@ -72,7 +69,7 @@ class LoginController extends Controller
         Auth::attempt($credentials);
         $request->session()->regenerate();
 
-        if(Profile::where('user_id', $user_id)->exists())
+        if(Profile::where('user_id', $user->id)->exists())
         {
             return redirect('/');
         }
