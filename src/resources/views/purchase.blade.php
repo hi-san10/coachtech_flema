@@ -27,7 +27,7 @@
         </div>
         <div class="user-address">
             <p>配送先</p>
-            <a href="">変更する</a>
+            <a href="{{ route('address_change_top', ['item_id' => $item->id]) }}">変更する</a>
             <p>〒{{ $user->post_code }}</p>
             <p>{{ $user->address }}<br>
             {{ $user->building_name }}</p>

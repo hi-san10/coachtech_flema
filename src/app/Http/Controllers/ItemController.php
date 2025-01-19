@@ -91,4 +91,12 @@ class ItemController extends Controller
         return view('purchase', compact('item', 'user'));
     }
 
+    public function address_change(Request $request)
+    {
+        $user = Profile::where('user_id', Auth::id())->first();
+        $item = Item::find($request->item_id)->first();
+
+        return view('address_change', compact('user', 'item'));
+    }
+
 }

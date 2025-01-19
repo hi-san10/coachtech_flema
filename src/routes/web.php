@@ -56,3 +56,7 @@ Route::get('list_none', [MyPageController::class, 'list_none'])->name('list_none
 Route::post('/item/comment/{item_id}', [MyPageController::class, 'comment'])->name('comment');
 
 Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
+
+Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change'])->name('address_change_top');
+
+Route::patch('/address/change', [MyPageController::class, 'address_change'])->name('address_change');

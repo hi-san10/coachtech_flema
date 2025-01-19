@@ -124,4 +124,17 @@ class MyPageController extends Controller
 
         return back();
     }
+
+    public function address_change(AddressRequest $request)
+    {
+        $item = Item::find($request->item_id)->first();
+        $user = Profile::where('user_id', Auth::id())->first();
+        $user->update([
+            'post_code' => $request->post_code,
+            'address' => $request->address,
+            'building_name' => $request->building_name
+        ]);
+
+        return view('purchase', compact('item', 'user'));
+    }
 }
