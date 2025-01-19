@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NiceController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +61,5 @@ Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name
 Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change'])->name('address_change_top');
 
 Route::patch('/address/change', [MyPageController::class, 'address_change'])->name('address_change');
+
+Route::post('/charge', [PaymentController::class, 'charge']);
