@@ -99,4 +99,11 @@ class ItemController extends Controller
         return view('address_change', compact('user', 'item'));
     }
 
+    public function search(Request $request)
+    {
+        $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->ItemSearch($request->search_word)->get();
+
+        return view('item_all', compact('items'));
+    }
+
 }

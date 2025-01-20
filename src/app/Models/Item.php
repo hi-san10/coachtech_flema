@@ -30,4 +30,12 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function ScopeItemSearch($query, $search_word)
+    {
+        if(!empty($search_word))
+        {
+            $query->where('name', 'like', '%'.$search_word.'%');
+        }
+    }
 }

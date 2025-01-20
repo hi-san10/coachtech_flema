@@ -17,6 +17,8 @@ use App\Http\Controllers\PaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/search', [ItemController::class, 'search']);
+
 Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
 
 Route::group(['middleware' => 'auth'], function()
@@ -63,3 +65,4 @@ Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_chang
 Route::patch('/address/change', [MyPageController::class, 'address_change'])->name('address_change');
 
 Route::post('/charge', [PaymentController::class, 'charge']);
+

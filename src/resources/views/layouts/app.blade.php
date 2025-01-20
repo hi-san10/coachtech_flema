@@ -35,8 +35,8 @@
                 </svg>
             </div>
             <div class="search">
-                <form class="search__form" action="">
-                    <input class="search__form-word" type="text" name="search_item" placeholder="     なにをお探しですか？">
+                <form class="search__form" action="/search">
+                    <input class="search__form-word" type="text" name="search_word" placeholder="     なにをお探しですか？">
                 </form>
             </div>
             <div class="header__nav">
