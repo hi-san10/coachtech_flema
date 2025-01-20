@@ -56,7 +56,9 @@ class MyPageController extends Controller
 
         $user = Profile::where('user_id', $request->id)->first();
 
-        return view('mypage', compact('user'));
+        $items = Item::where('user_id', Auth::id())->get();
+
+        return view('mypage', compact('user', 'items'));
     }
 
     public function update(AddressRequest $request)
