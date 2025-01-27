@@ -13,17 +13,22 @@ use App\Models\Comment;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if(Auth::check())
-        {
-            $id = Auth::id();
-            $items = Item::where('user_id', '!=', Auth::id())->get();
-            return view('item_all', compact('items'));
-        }
+        $word = $request->search_word;
 
-        $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->get();
-        return view('item_all', compact('items'));
+        if(!$request->page)
+        {
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))->get();
+            return view('item_all', compact('items'));
+        }elseif(!Auth::check())
+        {
+            return view('list_none');
+        }
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))->
+            whereHas('nices', fn($query) => $query->where('user_id', Auth::id()))->get();
+
+            return view('item_all', compact('items'));
     }
 
     public function item_detail(Request $request)
@@ -36,6 +41,10 @@ class ItemController extends Controller
         $nice = Nice::where('item_id', $item_id)->count();
 
         $comment = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $item_id)->exists();
+        // $comment = Comment::with('user', 'item')->where([
+        //     ['user_id', Auth::id()],
+        //     ['item_id', $item_id]
+        // ])->exists();
         $comment_user = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $item_id)->first();
         $comment_count = Comment::where('item_id', $item_id)->count();
 

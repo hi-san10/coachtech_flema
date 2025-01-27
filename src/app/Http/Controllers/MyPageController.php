@@ -97,16 +97,9 @@ class MyPageController extends Controller
         return redirect('/');
     }
 
-    public function mylist()
+    public function list_none(Request $request)
     {
-        $my_nices = Nice::with('item')->where('user_id', Auth::id())->get();
-
-        return view('item_mylist', compact('my_nices'));
-    }
-
-    public function list_none()
-    {
-        return view('list_none');
+        return view('item_all');
     }
 
     public function comment(Request $request)

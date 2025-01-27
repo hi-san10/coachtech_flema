@@ -14,7 +14,7 @@
         </div>
         <div class="item_all__header">
             <a class="header-list__link" href="/">おすすめ</a>
-            <a class="header-list__link" href="{{ route('mylist') }}" style="color: red">マイリスト</a>
+            <a class="header-list__link" href="" style="color: red">マイリスト</a>
             <p class="header__border"></p>
         </div>
     </div>

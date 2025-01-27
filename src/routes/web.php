@@ -17,7 +17,6 @@ use App\Http\Controllers\PaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/search', [ItemController::class, 'search']);
 
 Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
 
@@ -28,7 +27,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/sell', [ItemController::class, 'sell_top']);
 });
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('index');
 
 Route::get('/login', [LoginController::class, 'login_top'])->name('login');
 
@@ -51,8 +50,6 @@ Route::patch('/mypage/update', [MyPageController::class, 'update']);
 Route::post('/sell/store', [ItemController::class, 'sell'])->name('sell');
 
 Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
-
-Route::get('/{id?}', [MyPageController::class, 'mylist'])->name('mylist');
 
 Route::get('list_none', [MyPageController::class, 'list_none'])->name('list_none');
 
