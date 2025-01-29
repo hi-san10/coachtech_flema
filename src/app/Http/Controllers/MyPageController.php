@@ -104,11 +104,17 @@ class MyPageController extends Controller
 
     public function comment(Request $request)
     {
-        $comment = Comment::with('user', 'item')->where('user_id', Auth::id())->where('item_id', $request->item_id)->exists();
+        $comment = Comment::with('user', 'item')->where([
+            ['user_id', Auth::id()],
+            ['item_id', $request->item_id]
+        ])->exists();
 
         if($comment)
         {
-            return back()->with('message', 'コメント済みです');
+            Comment::where('user_id', Auth::id())->update([
+                'comment' => $request->comment
+            ]);
+            return back()->with('message', 'コメントを更新しました');
         }
 
         Comment::create([
