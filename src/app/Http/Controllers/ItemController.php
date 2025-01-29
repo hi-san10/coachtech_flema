@@ -44,7 +44,7 @@ class ItemController extends Controller
         $comment = Comment::where('item_id', $item_id)->select('user_id', 'comment')->inRandomOrder()->first();
         $user = Profile::when($comment, fn ($query) => $query->where('user_id', $comment->user_id)->select('name', 'image'))->first();
 
-        return view('item', compact('item', 'categories', 'nice', 'comment_count', 'comment', 'comment_user', 'user'));
+        return view('item', compact('item', 'categories', 'nice', 'comment_count', 'comment', 'user'));
     }
 
     public function sell_top()

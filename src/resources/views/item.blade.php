@@ -56,17 +56,22 @@
                     <p class="user-info__comment"></p>
                     @endif
                 </div>
+                @if(Auth::check())
                 <form action="{{ route('comment', ['item_id' => $item->id]) }}" method="post" class="comment__form">
                     @csrf
                     <div class="form__inner">
                         <p>商品へのコメント</p>
-                        <textarea name="comment" id=""></textarea>
                         @if(session('message'))
                         <p>{{ session('message') }}</p>
                         @endif
+                        <textarea name="comment" id=""></textarea>
+                        @error('comment')
+                        <p>{{ $message }}</p>
+                        @enderror
                         <button>コメントを送信する</button>
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </div>

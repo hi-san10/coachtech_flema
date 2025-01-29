@@ -12,6 +12,7 @@ use App\Models\Nice;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 
 class MyPageController extends Controller
 {
@@ -102,7 +103,7 @@ class MyPageController extends Controller
         return view('item_all');
     }
 
-    public function comment(Request $request)
+    public function comment(CommentRequest $request)
     {
         $comment = Comment::with('user', 'item')->where([
             ['user_id', Auth::id()],
