@@ -9,11 +9,16 @@
 
 .header-list__link {
     text-decoration: none;
-    color: black;
+    color: gray;
+    display: inline-block;
+    margin-left: 80px;
+    padding-top: 30px;
+    font-size: 18px;
 }
 
 .header__border {
     border-bottom: 1px black solid;
+    margin-top: 0;
 }
 
 .item_all__item {

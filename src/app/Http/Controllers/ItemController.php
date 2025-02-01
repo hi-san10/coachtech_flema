@@ -16,19 +16,24 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $word = $request->search_word;
+        $prm = $request->page;
 
         if(!$request->page)
         {
-            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))->get();
-            return view('item_all', compact('items'));
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+            ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
+
+            return view('item_all', compact('items', 'prm'));
         }elseif(!Auth::check())
         {
             return view('list_none');
         }
-            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))->
-            whereHas('nices', fn($query) => $query->where('user_id', Auth::id()))->get();
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+            ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
 
-            return view('item_all', compact('items'));
+            return view('item_all', compact('items', 'prm'));
     }
 
     public function item_detail(Request $request)
@@ -96,7 +101,6 @@ class ItemController extends Controller
 
     public function address_change_top(Request $request)
     {
-        // dd('k');
         $user = Profile::where('user_id', Auth::id())->first();
         $item = Item::find($request->item_id)->first();
 

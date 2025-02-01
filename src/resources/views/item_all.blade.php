@@ -13,12 +13,13 @@
             @endif
         </div>
         <div class="item_all__header">
-            @if(Request::routeIs(['index']))
-            <a class="header-list__link" href="/" style="color: red">おすすめ</a>
-            @else
+            @if($prm)
             <a class="header-list__link" href="/">おすすめ</a>
-            @endif
+            <a class="header-list__link" href="{{ route('index') }}?page=mylist" style="color: red">マイリスト</a>
+            @else
+            <a class="header-list__link" href="/" style="color: red">おすすめ</a>
             <a class="header-list__link" href="{{ route('index') }}?page=mylist">マイリスト</a>
+            @endif
             <p class="header__border"></p>
         </div>
         @foreach($items as $item)
