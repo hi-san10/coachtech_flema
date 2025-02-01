@@ -57,9 +57,9 @@ Route::post('/item/comment/{item_id}', [MyPageController::class, 'comment'])->na
 
 Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
 
-Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change'])->name('address_change_top');
+Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change_top'])->name('address_change_top');
 
-Route::patch('/address/change', [MyPageController::class, 'address_change'])->name('address_change');
+Route::post('/shipping_address/{item_id}', [MyPageController::class, 'change_shipping_address'])->name('change_shipping_address');
 
 Route::post('/charge', [PaymentController::class, 'charge']);
 

@@ -7,8 +7,7 @@
 <div class="flema-address_change">
     <div class="address_change-content">
         <h1>住所の変更</h1>
-        <form action="{{ route('address_change', ['item_id' => $item->id]) }}" method="post" class="address_change__form">
-            @method('patch')
+        <form action="{{ route('change_shipping_address', ['item_id' => $item->id]) }}" method="post" class="address_change__form">
             @csrf
             <div class="content-inner">
                 <p>郵便番号</p>

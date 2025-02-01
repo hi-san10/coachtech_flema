@@ -94,8 +94,9 @@ class ItemController extends Controller
         return view('purchase', compact('item', 'user'));
     }
 
-    public function address_change(Request $request)
+    public function address_change_top(Request $request)
     {
+        // dd('k');
         $user = Profile::where('user_id', Auth::id())->first();
         $item = Item::find($request->item_id)->first();
 

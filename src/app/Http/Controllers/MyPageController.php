@@ -13,6 +13,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
+use App\Models\ShippingAddress;
 
 class MyPageController extends Controller
 {
@@ -127,15 +128,20 @@ class MyPageController extends Controller
         return back();
     }
 
-    public function address_change(AddressRequest $request)
+    public function change_shipping_address(Request $request)
     {
-        $item = Item::find($request->item_id)->first();
-        $user = Profile::where('user_id', Auth::id())->first();
-        $user->update([
+        $profile = Profile::where('user_id', Auth::id())->first();
+
+        ShippingAddress::create([
+            'profile_id' => $profile->id,
+            'item_id' => $request->item_id,
             'post_code' => $request->post_code,
             'address' => $request->address,
             'building_name' => $request->building_name
         ]);
+
+        $user = ShippingAddress::where('profile_id', $profile->id)->latest('id')->first();
+        $item = Item::whereId($request->item_id)->first();
 
         return view('purchase', compact('item', 'user'));
     }
