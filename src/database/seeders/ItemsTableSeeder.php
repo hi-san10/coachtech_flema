@@ -20,7 +20,6 @@ class ItemsTableSeeder extends Seeder
             'name' => '腕時計',
             'price' => '15000',
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
-            'is_sold' => '0',
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg'
         ];
         DB::table('items')->insert($content);
