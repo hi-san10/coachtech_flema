@@ -1,0 +1,80 @@
+.setting__form {
+    width: 100%;
+}
+
+.profile_setting-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__title {
+    margin: 30px auto;
+}
+
+.content__image {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.profile__img {
+    width: 100px;
+    height: 100px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 70px;
+}
+
+.img-label {
+    color: #ff5555;
+    border: solid;
+    border-color: #ff5555;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.error__message {
+    color: red;
+    margin-top: 0;
+}
+
+.img-error__message {
+    margin: auto 0 auto 30px;
+}
+
+.content__item {
+    width: 50%;
+    margin: auto;
+}
+
+.item__txt {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.item__input {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.content__submit {
+    width: 50%;
+    margin: auto;
+}
+
+.content__btn {
+    width: 100%;
+    height: 30px;
+    color: white;
+    background-color: #ff5555;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}

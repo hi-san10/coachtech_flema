@@ -12,14 +12,14 @@
             @csrf
             <div class="form-inner">
                 <p class="inner__txt">ユーザー名</p>
-                <input type="text" name="name">
+                <input type="text" name="name" value="{{ old('name') }}">
                 @error('name')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
                 <p class="inner__txt">メールアドレス</p>
-                <input type="email" name="email">
+                <input type="email" name="email" value="{{ old('email') }}">
                 @error('email')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
