@@ -13,8 +13,14 @@
                 <a href="{{ route('setting', ['id' => Auth::id()]) }}">プロフィールを編集</a>
             </div>
             <div class="my-item__list">
-                <a href="">出品した商品</a>
-                <a href="">購入した商品</a>
+                @if($prm == 'buy')
+                <a class="list__link" href="{{ route('mypage') }}?page=sell">出品した商品</a>
+                <a class="list__link" href="{{ route('mypage') }}?page=buy" style="color: red">購入した商品</a>
+                @else
+                <a class="list__link" href="{{ route('mypage') }}?page=sell" style="color: red">出品した商品</a>
+                <a class="list__link" href="{{ route('mypage') }}?page=buy">購入した商品</a>
+                @endif
+                <p class="header__border"></p>
             </div>
             @foreach($items as $item)
             <div class="sell-item">

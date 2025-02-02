@@ -88,7 +88,7 @@ class ItemController extends Controller
 
     public function purchase_top(Request $request)
     {
-        $item = Item::find($request->item_id)->first();
+        $item = Item::where('id', $request->item_id)->first();
         $user = Profile::where('user_id', Auth::id())->first();
 
         if(is_null($user))

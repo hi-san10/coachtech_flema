@@ -49,18 +49,23 @@ class MyPageController extends Controller
 
     public function mypage(Request $request)
     {
-        $profile = Profile::where('user_id', $request->id)->exists();
+        $profile = Profile::where('user_id', Auth::id())->exists();
+        $prm = $request->page;
 
         if(!$profile)
         {
             return redirect('/mypage/profile');
+        }elseif($prm == 'buy')
+        {
+            $items = Item::where('is_sold', Auth::id())->get();
+        }else
+        {
+            $items = Item::where('user_id', Auth::id())->get();
         }
 
-        $user = Profile::where('user_id', $request->id)->first();
+        $user = Profile::where('user_id', Auth::id())->first();
 
-        $items = Item::where('user_id', Auth::id())->get();
-
-        return view('mypage', compact('user', 'items'));
+        return view('mypage', compact('user', 'items', 'prm'));
     }
 
     public function update(AddressRequest $request)
