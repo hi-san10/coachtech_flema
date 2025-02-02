@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Nice;
 use App\Models\Profile;
 use App\Models\Comment;
+use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
@@ -65,7 +66,7 @@ class ItemController extends Controller
         return view('sell', compact('categories', 'conditions'));
     }
 
-    public function sell(Request $request)
+    public function sell(ExhibitionRequest $request)
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
         $item_image = $request->file('image')->storeAs('public/item_images', 'user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension);
