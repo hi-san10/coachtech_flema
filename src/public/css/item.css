@@ -1,0 +1,143 @@
+.flema-item_detail__content {
+    width: 75%;
+    margin: auto;
+}
+
+.content-inner {
+    display: flex;
+    justify-content: space-around;
+}
+
+.inner__img {
+    width: 450px;
+    height: 450px;
+    margin-top: 50px;
+}
+
+.item__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.inner__detail {
+    width: 400px;
+    margin-top: 20px;
+}
+
+.item_name {
+    margin-bottom: 0;
+}
+
+.brand_name {
+    display: block;
+}
+
+.item_price {
+    display: inline-block;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.nice_icon, .comment_icon {
+    display: block;
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.red_icon {
+    color: red;
+}
+
+.icon {
+    display: flex;
+}
+
+.icon__inner {
+    margin: auto 35px;
+}
+
+.count {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.purchase__link, .comment__link {
+    text-decoration: none;
+    background-color: #ff5555;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    margin-top: 5px;
+    padding-top: 3px;
+}
+
+.comment__link {
+    border: none;
+}
+
+.detail_category {
+    display: flex;
+    align-items: center;
+}
+
+.category_title {
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category_name {
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 5px;
+    margin: auto 2px;
+}
+
+.detail {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.comment_user {
+    display: flex;
+    align-items: center;
+}
+
+.user-info__img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #d9d9d9;
+    margin-right: 50px;
+}
+
+.user-info__name {
+    font-weight: bold;
+}
+
+.user-info__comment {
+    background-color: #d9d9d9;
+    width: 100%;
+    height: 30px;
+    padding: 4px;
+}
+
+.item__comment {
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+}

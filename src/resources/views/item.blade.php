@@ -8,51 +8,67 @@
 <div class="flema-item_detail__content">
     <div class="content-inner">
         <div class="inner__img">
-            <img src="{{ $item->image }}" alt="">
+            <img class="item__img" src="{{ $item->image }}" alt="">
         </div>
         <div class="inner__detail">
             <div class="detail__name-price">
-                <h1>{{ $item->name }}</h1>
+                <h1 class="item_name">{{ $item->name }}</h1>
                 @if(is_null($item->brand_name))
-                <p>ブランド不明</p>
+                <small class="brand_name">ブランド不明</small>
                 @else
-                <p>{{ $item->brand_name }}</p>
+                <small class="brand_name">{{ $item->brand_name }}</small>
                 @endif
-                <p>¥{{ $item->price }}(税込)</p>
-                @if(Auth::check())
-                <a href="{{ route('nice', ['item_id' => $item->id]) }}">いいね</a>
-                @else
-                <p>いいね</p>
-                @endif
-                <span>{{ $nice }}</span>
-                <p>コメント</p>
-                <span>{{ $comment_count }}</span>
+                <span>¥</span><p class="item_price">{{ number_format($item->price) }}</p><span>(税込)</span>
+                <div class="icon">
+                    <div class="icon__inner">
+                        @if(!Auth::check())
+                        <a class="nice_icon" href="">☆</a>
+                        @elseif($nice)
+                        <a class="nice_icon red_icon" href="{{ route('nice', ['item_id' => $item->id]) }}">★</a>
+                        @else
+                        <a class="nice_icon" href="{{ route('nice', ['item_id' => $item->id]) }}">☆</a>
+                        @endif
+                        <span class="count">{{ $nice_count }}</span>
+                    </div>
+                    <div>
+                        <span class="comment_icon">💬</span>
+                        <span class="count">{{ $comment_count }}</span>
+                    </div>
+                </div>
             </div>
             <a href="{{ route('purchase_top', ['item_id' => $item->id]) }}" class="purchase__link">購入手続きへ</a>
             <div class="explanation">
                 <h2>商品説明</h2>
                 <p>カラー : グレー</p>
-                <p>新品<br>商品の状態は良好です。傷もありません。</p><br>
+                <p>新品<br>商品の状態は良好です。傷もありません。</p>
                 <p>購入後、即発送致します。</p>
             </div>
             <div class="detail__info">
                 <h2>商品の情報</h2>
-                <p>カテゴリー</p>
-                @foreach($categories as $category)
-                <span>{{ $category->name }}</span>
-                @endforeach
-                <p>商品の状態<span>{{ $item->condition->condition }}</span></p>
+                <div class="detail_category">
+                    <p class="category_title">カテゴリー</p>
+                    <div class="categories">
+                        @foreach($categories as $category)
+                        <span class="category_name">{{ $category->name }}</span>
+                        @endforeach
+                    </div>
+                </div>
+                <p class="detail">商品の状態</p><span>{{ $item->condition->condition }}</span>
             </div>
             <div class="detail__comment">
                 <h2>コメント({{ $comment_count }})</h2>
                 <div class="user-info">
                     @if($comment)
-                    <img src="{{ asset($user->image) }}" alt="" class="user-info__img">
-                    <p class="user-info__name">{{ $user->name }}</p>
+                    <div class="comment_user">
+                        <img src="{{ asset($user->image) }}" alt="" class="user-info__img">
+                        <span class="user-info__name">{{ $user->name }}</span>
+                    </div>
                     <p class="user-info__comment">{{ $comment->comment }}</p>
                     @else
-                    <img src="" alt="" class="user-info__img">
-                    <p class="user-info__name"></p>
+                    <div class="comment_user">
+                        <img class="user-info__img">
+                        <span class="user-info__name"></span>
+                    </div>
                     <p class="user-info__comment"></p>
                     @endif
                 </div>
@@ -60,15 +76,15 @@
                 <form action="{{ route('comment', ['item_id' => $item->id]) }}" method="post" class="comment__form">
                     @csrf
                     <div class="form__inner">
-                        <p>商品へのコメント</p>
+                        <p class="item__comment">商品へのコメント</p>
                         @if(session('message'))
                         <p>{{ session('message') }}</p>
                         @endif
-                        <textarea name="comment" id=""></textarea>
+                        <textarea name="comment" rows="10"></textarea>
                         @error('comment')
                         <p>{{ $message }}</p>
                         @enderror
-                        <button>コメントを送信する</button>
+                        <button class="comment__link">コメントを送信する</button>
                     </div>
                 </form>
                 @endif

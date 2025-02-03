@@ -44,13 +44,17 @@ class ItemController extends Controller
 
         $categories = $item->category->all();
 
-        $nice = Nice::where('item_id', $item_id)->count();
+        $nice = Nice::where([
+            ['user_id', Auth::id()],
+            ['item_id', $item_id]
+        ])->exists();
+        $nice_count = Nice::where('item_id', $item_id)->count();
         $comment_count = Comment::where('item_id', $item_id)->count();
 
         $comment = Comment::where('item_id', $item_id)->select('user_id', 'comment')->inRandomOrder()->first();
         $user = Profile::when($comment, fn ($query) => $query->where('user_id', $comment->user_id)->select('name', 'image'))->first();
 
-        return view('item', compact('item', 'categories', 'nice', 'comment_count', 'comment', 'user'));
+        return view('item', compact('item', 'categories', 'nice', 'nice_count', 'comment_count', 'comment', 'user'));
     }
 
     public function sell_top()
