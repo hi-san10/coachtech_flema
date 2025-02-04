@@ -8,7 +8,11 @@
 <div class="flema-item_detail__content">
     <div class="content-inner">
         <div class="inner__img">
+            @if($item->image)
             <img class="item__img" src="{{ $item->image }}" alt="">
+            @else
+            <img class="item__img" src="{{ asset($item->storage_image) }}" alt="">
+            @endif
         </div>
         <div class="inner__detail">
             <div class="detail__name-price">
