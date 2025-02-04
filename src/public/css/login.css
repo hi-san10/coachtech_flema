@@ -25,13 +25,13 @@
     font-weight: bold;
 }
 
-.form-inner input {
+.inner__input {
     box-sizing: border-box;
     width: 400px;
     height: 35px;
 }
 
-.form-inner button {
+.inner__btn {
     width: 400px;
     height: 35px;
     color: white;

@@ -1,0 +1,35 @@
+.address_change-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-inner:first-of-type {
+    margin-top: 20px;
+}
+
+.content-inner {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.inner__txt {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.inner__input {
+    box-sizing: border-box;
+    width: 400px;
+    height: 35px;
+}
+
+.form__btn {
+    width: 400px;
+    height: 35px;
+    color: white;
+    background-color: #ff5555;
+    border: none;
+}
