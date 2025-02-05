@@ -15,8 +15,8 @@
             <h1 class="profile__title">プロフィール設定</h1>
             <div class="content__image">
                 <img class="profile__img" src="{{ asset($profile->image) }}" alt="" value="{{ asset($profile->image) }}">
-                <label class="img-label" for="img">画像を選択する</label>
-                <input type="file" name="image" id="img-label">
+                <label class="img__label" for="img">画像を選択する</label>
+                <input type="file" name="image" id="img" onchange="imgChange()">
             </div>
             <div class="content__item">
                 <p class="item__txt">ユーザー名</p>
@@ -50,8 +50,8 @@
             <h1 class="profile__title">プロフィール設定</h1>
             <div class="content__image">
                 <img class="profile__img" alt="">
-                <label class="img-label" for="img">画像を選択する</label>
-                <input type="file" name="image" id="img">
+                <label class="img__label" for="img">画像を選択する</label>
+                <input type="file" name="image" id="img" onchange="imgChange()">
                 @error('image')
                 <p class="error__message img-error__message">{{ $message }}</p>
                 @enderror

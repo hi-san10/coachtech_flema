@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <style>
+input[type="checkbox"] {
+  color: blue;
+}
+</style>
 </head>
 <body>
     <div class="flema">
