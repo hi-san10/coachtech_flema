@@ -133,7 +133,7 @@ class MyPageController extends Controller
         return back();
     }
 
-    public function change_shipping_address(Request $request)
+    public function change_shipping_address(AddressRequest $request)
     {
         $profile = Profile::where('user_id', Auth::id())->first();
 

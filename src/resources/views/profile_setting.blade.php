@@ -14,7 +14,7 @@
         <div class="profile_setting-content">
             <h1 class="profile__title">プロフィール設定</h1>
             <div class="content__image">
-                <img class="profile__img" src="{{ asset($profile->image) }}" alt="" value="{{ asset($profile->image) }}">
+                <img class="profile__img" src="{{ asset($profile->image) }}">
                 <label class="img__label" for="img">画像を選択する</label>
                 <input type="file" name="image" id="img" onchange="imgChange()">
             </div>

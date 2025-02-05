@@ -27,7 +27,7 @@
             <div class="content-inner">
                 <p class="inner__txt">建物名</p>
                 @if(is_null($user->building_name))
-                <input class="inner__input" type="text">
+                <input class="inner__input" type="text" name="building_name">
                 @else
                 <input class="inner__input" type="text" name="building_name" value="{{ $user->building_name }}">
                 @endif
