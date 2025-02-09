@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/mypage/{id?}', [MyPageController::class, 'mypage'])->name('mypage');
 
     Route::get('/sell', [ItemController::class, 'sell_top']);
+
+    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
 });
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
@@ -51,11 +53,7 @@ Route::post('/sell/store', [ItemController::class, 'sell'])->name('sell');
 
 Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
 
-Route::get('list_none', [MyPageController::class, 'list_none'])->name('list_none');
-
 Route::post('/item/comment/{item_id}', [MyPageController::class, 'comment'])->name('comment');
-
-Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
 
 Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change_top'])->name('address_change_top');
 
