@@ -43,7 +43,10 @@
                     </div>
                 </div>
             </div>
+            @if(is_null($item->is_sold))
             <a href="{{ route('purchase_top', ['item_id' => $item->id]) }}" class="purchase__link">購入手続きへ</a>
+            @else
+            @endif
             <div class="explanation">
                 <h2>商品説明</h2>
                 <p>カラー : グレー</p>
