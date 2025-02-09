@@ -3,6 +3,12 @@
     margin: auto;
 }
 
+.session_message {
+    color: red;
+    text-align: center;
+    font-size: 25px;
+}
+
 .content-inner {
     display: flex;
     justify-content: space-around;

@@ -6,6 +6,9 @@
 
 @section('content')
 <div class="flema-item_detail__content">
+    @if(session('message'))
+    <p class="session_message">{{ session('message') }}</p>
+    @endif
     <div class="content-inner">
         <div class="inner__img">
             @if($item->image)
@@ -62,12 +65,14 @@
             <div class="detail__comment">
                 <h2>コメント({{ $comment_count }})</h2>
                 <div class="user-info">
-                    @if($comment)
+                    @if($comments)
+                    @foreach($comments as $comment)
                     <div class="comment_user">
-                        <img src="{{ asset($user->image) }}" alt="" class="user-info__img">
-                        <span class="user-info__name">{{ $user->name }}</span>
+                        <img src="{{ asset($comment->image) }}" alt="" class="user-info__img">
+                        <span class="user-info__name">{{ $comment->name }}</span>
                     </div>
                     <p class="user-info__comment">{{ $comment->comment }}</p>
+                    @endforeach
                     @else
                     <div class="comment_user">
                         <img class="user-info__img">
@@ -81,9 +86,6 @@
                     @csrf
                     <div class="form__inner">
                         <p class="item__comment">商品へのコメント</p>
-                        @if(session('message'))
-                        <p>{{ session('message') }}</p>
-                        @endif
                         <textarea name="comment" rows="10"></textarea>
                         @error('comment')
                         <p>{{ $message }}</p>

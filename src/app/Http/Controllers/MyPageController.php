@@ -104,11 +104,6 @@ class MyPageController extends Controller
         return redirect('/');
     }
 
-    public function list_none(Request $request)
-    {
-        return view('item_all');
-    }
-
     public function comment(CommentRequest $request)
     {
         $comment = Comment::with('user', 'item')->where([
@@ -116,19 +111,16 @@ class MyPageController extends Controller
             ['item_id', $request->item_id]
         ])->exists();
 
-        if($comment)
-        {
-            Comment::where('user_id', Auth::id())->update([
-                'comment' => $request->comment
-            ]);
-            return back()->with('message', 'コメントを更新しました');
-        }
-
         Comment::create([
             'user_id' => Auth::id(),
             'item_id' => $request->item_id,
             'comment' => $request->comment
         ]);
+
+        if($comment)
+        {
+            return back()->with('message', 'コメントを更新しました');
+        }
 
         return back();
     }

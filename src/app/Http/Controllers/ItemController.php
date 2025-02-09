@@ -37,27 +37,6 @@ class ItemController extends Controller
             return view('item_all', compact('items', 'prm', 'word'));
     }
 
-    // public function index(Request $request)
-    // {
-    //     $word = $request->search_word;
-    //     $prm = $request->page;
-
-    //     if(!$request->page)
-    //     {
-    //         $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
-    //         ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-    //         ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
-    //     }elseif(!Auth::check())
-    //     {
-    //         return view('list_none');
-    //     }else{
-    //         $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
-    //         ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-    //         ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
-    //     }
-    //         return view('item_all', compact('items', 'prm', 'word'));
-    // }
-
     public function item_detail(Request $request)
     {
         $item_id = $request->item_id;
@@ -69,13 +48,13 @@ class ItemController extends Controller
             ['user_id', Auth::id()],
             ['item_id', $item_id]
         ])->exists();
+
         $nice_count = Nice::where('item_id', $item_id)->count();
         $comment_count = Comment::where('item_id', $item_id)->count();
 
-        $comment = Comment::where('item_id', $item_id)->select('user_id', 'comment')->inRandomOrder()->first();
-        $user = Profile::when($comment, fn ($query) => $query->where('user_id', $comment->user_id)->select('name', 'image'))->first();
+        $comments = Comment::where('item_id', $item_id)->join('profiles', 'comments.user_id', '=', 'profiles.user_id')->get();
 
-        return view('item', compact('item', 'categories', 'nice', 'nice_count', 'comment_count', 'comment', 'user'));
+        return view('item', compact('item', 'categories', 'nice', 'nice_count', 'comment_count', 'comments'));
     }
 
     public function sell_top()
