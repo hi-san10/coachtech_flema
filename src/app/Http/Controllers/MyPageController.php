@@ -14,6 +14,7 @@ use App\Http\Requests\AddressRequest;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Models\ShippingAddress;
+use App\Http\Requests\AddressChangeRequest;
 
 class MyPageController extends Controller
 {
@@ -125,7 +126,7 @@ class MyPageController extends Controller
         return back();
     }
 
-    public function change_shipping_address(Request $request)
+    public function change_shipping_address(AddressChangeRequest $request)
     {
         $profile = Profile::where('user_id', Auth::id())->first();
 
