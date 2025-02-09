@@ -8,7 +8,7 @@
 <div class="flema-profile_setting">
     <!-- プロフィール初期設定済み -->
     @if($profile_id)
-    <form class="setting__form" action="/mypage/update" method="post" enctype="multipart/form-data">
+    <form class="setting__form" action="/mypage/image/update" method="post" enctype="multipart/form-data">
         @method('patch')
         @csrf
         <div class="profile_setting-content">
@@ -18,9 +18,22 @@
                 <label class="img__label" for="img">画像を選択する</label>
                 <input type="file" name="image" id="img" onchange="imgChange()">
             </div>
+            <div class="content__submit">
+                <button class="content__btn">更新する</button>
+                @error('image')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
+            </div>
+    </form>
+    <form class="setting__form" action="/mypage/update" method="post">
+        @method('patch')
+        @csrf
             <div class="content__item">
                 <p class="item__txt">ユーザー名</p>
                 <input class="item__input" type="text" name="user_name" placeholder="{{ $profile->name }}" value="{{ $profile->name }}">
+                @error('user_name')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p class="item__txt">郵便番号</p>
@@ -32,6 +45,9 @@
             <div class="content__item">
                 <p class="item__txt">住所</p>
                 <input class="item__input" type="text" name="address" placeholder="{{ $profile->address }}" value="{{ $profile->address }}">
+                @error('address')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
             <div class="content__item">
                 <p class="item__txt">建物名</p>

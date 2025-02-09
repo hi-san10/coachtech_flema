@@ -64,7 +64,7 @@ input[type="file"] {
 
 .content__submit {
     width: 50%;
-    margin: auto;
+    margin: 0 auto 20px auto;
 }
 
 .content__btn {

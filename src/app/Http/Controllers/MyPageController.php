@@ -69,22 +69,22 @@ class MyPageController extends Controller
         return view('mypage', compact('user', 'items', 'prm'));
     }
 
-    public function update(AddressRequest $request)
+    public function image_update(ProfileRequest $request)
     {
         $user = Profile::where('user_id', Auth::id())->first();
 
-        if(!$request->file('image'))
-        {
-            $user->update([
-                'name' => $request->user_name,
-                'post_code' => $request->post_code,
-                'address' => $request->address,
-                'building_name' => $request->building_name,
-                'image' => $user->image
-            ]);
+        // if(!$request->file('image'))
+        // {
+        //     $user->update([
+        //         'name' => $request->user_name,
+        //         'post_code' => $request->post_code,
+        //         'address' => $request->address,
+        //         'building_name' => $request->building_name,
+        //         'image' => $user->image
+        //     ]);
 
-            return redirect('/');
-        }
+        //     return redirect('/');
+        // }
 
         $user_image = $user->image;
         $path = substr($user_image, 20);
@@ -95,14 +95,26 @@ class MyPageController extends Controller
         $user_image = $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
 
         Profile::where('user_id', Auth::id())->update([
+            // 'name' => $request->user_name,
+            // 'post_code' => $request->post_code,
+            // 'address' => $request->address,
+            // 'building_name' => $request->building_name,
+            'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
+        ]);
+
+        return redirect()->route('setting');
+    }
+
+    public function update(AddressRequest $request)
+    {
+        Profile::where('user_id', Auth::id())->update([
             'name' => $request->user_name,
             'post_code' => $request->post_code,
             'address' => $request->address,
             'building_name' => $request->building_name,
-            'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
 
-        return redirect('/');
+        return redirect()->route('setting');
     }
 
     public function comment(CommentRequest $request)
