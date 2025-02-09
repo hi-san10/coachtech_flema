@@ -51,6 +51,8 @@
         <div class="content">
             <form action="{{ asset('charge') }}" method="POST">
                 {{ csrf_field() }}
+                <input type="hidden" name="price" value="{{ $item->price }}">
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="{{ env('STRIPE_KEY') }}"

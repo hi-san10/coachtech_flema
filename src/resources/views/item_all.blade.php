@@ -13,21 +13,21 @@
             @endif
         </div>
         <div class="item_all__header">
-            @if($prm)
-            <a class="header-list__link" href="/">おすすめ</a>
-            <a class="header-list__link" href="{{ route('index') }}?page=mylist" style="color: red">マイリスト</a>
-            @else
-            <a class="header-list__link" href="/" style="color: red">おすすめ</a>
-            <a class="header-list__link" href="{{ route('index') }}?page=mylist">マイリスト</a>
-            @endif
+            <a class="header-list__link" href="/" @if(!$prm) style="color: red" @endif>おすすめ</a>
+            <a class="header-list__link" href="{{ route('index', ['page' => 'mylist', 'search_word' => $word]) }}" @if($prm) style="color: red" @endif>マイリスト</a>
             <p class="header__border"></p>
         </div>
+        <!-- 未ログインのマイリスト非表示 -->
+        @if(!Auth::check() && $prm == 'mylist')
+
+        <!-- ログインユーザーのマイリスト表示 -->
+        @else
         @foreach($items as $item)
         @if(is_null($item->storage_image))
         <div class="item_all__item">
             <img src="{{ $item->image }}" alt="" class="item__img">
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
-            @if($item->is_sold == 1)
+            @if(!$item->is_sold == null)
             <p class="sold">sold</p>
             @endif
         </div>
@@ -35,12 +35,13 @@
         <div class="item_all__item">
             <img src="{{ asset($item->storage_image) }}" alt="" class="item__img">
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
-            @if($item->is_sold == 1)
+            @if(!$item->is_sold == null)
             <p class="sold">sold</p>
             @endif
         </div>
         @endif
         @endforeach
+        @endif
     </div>
 </div>
 @endsection

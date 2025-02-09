@@ -19,23 +19,44 @@ class ItemController extends Controller
         $word = $request->search_word;
         $prm = $request->page;
 
-        if(!$request->page)
+        if(!Auth::check() && $prm == 'mylist')
         {
-            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
-            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-            ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
-
-            return view('item_all', compact('items', 'prm'));
-        }elseif(!Auth::check())
-        {
-            return view('list_none');
+            return view('item_all', compact('word', 'prm'));
         }
+
+        if(Auth::check() && $prm == 'mylist')
+        {
             $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
             ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
             ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
-
-            return view('item_all', compact('items', 'prm'));
+        }else{
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+            ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
+        }
+            return view('item_all', compact('items', 'prm', 'word'));
     }
+
+    // public function index(Request $request)
+    // {
+    //     $word = $request->search_word;
+    //     $prm = $request->page;
+
+    //     if(!$request->page)
+    //     {
+    //         $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+    //         ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+    //         ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
+    //     }elseif(!Auth::check())
+    //     {
+    //         return view('list_none');
+    //     }else{
+    //         $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+    //         ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+    //         ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
+    //     }
+    //         return view('item_all', compact('items', 'prm', 'word'));
+    // }
 
     public function item_detail(Request $request)
     {

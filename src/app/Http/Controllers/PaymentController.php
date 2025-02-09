@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Stripe\stripe;
 use Stripe\Customer;
 use Stripe\Charge;
+use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -21,13 +23,16 @@ class PaymentController extends Controller
 
             $charge = Charge::create(array(
                 'customer' => $customer->id,
-                'amount' => '1000',
+                'amount' => $request->price,
                 'currency' => 'jpy'
             ));
 
-            
+            Item::where('id', $request->item_id)->update([
+                'is_sold' => Auth::id()
+            ]);
 
-            return back();
+
+            return redirect('/');
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
