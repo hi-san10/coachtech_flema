@@ -25,8 +25,9 @@
         @foreach($items as $item)
         @if(is_null($item->storage_image))
         <div class="item_all__item">
-            <img src="{{ $item->image }}" alt="" class="item__img">
-            <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
+            <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">
+                <img src="{{ $item->image }}" alt="" class="item__img">{{ $item->name }}
+            </a>
             @if(!$item->is_sold == null)
             <p class="sold">sold</p>
             @endif

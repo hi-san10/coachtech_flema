@@ -147,3 +147,14 @@
 textarea {
     width: 100%;
 }
+
+@media screen and (max-width: 850px) {
+    .inner__img {
+        width: 50%;
+        height: 50%;
+    }
+
+    .inner__detail {
+        width: 40%;
+    }
+}

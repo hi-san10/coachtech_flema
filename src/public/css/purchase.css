@@ -70,3 +70,16 @@ tr {
     border: solid black 1px;
 }
 
+@media screen and (max-width: 850px) {
+    .change__link {
+        margin-left: 55%;
+    }
+
+    .post_code, .address {
+        margin-left: 20%;
+    }
+
+    .flema-purchase {
+        justify-content: space-between;
+    }
+}

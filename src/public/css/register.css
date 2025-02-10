@@ -11,24 +11,31 @@
     align-items: center;
 }
 
+.register__form {
+    width: 45%;
+    text-align: center;
+}
+
 .form-inner {
     margin-bottom: 30px;
 }
 
 .inner__txt {
-    margin: 0;
+    width: 95%;
     font-size: 14px;
     font-weight: bold;
+    text-align: left;
+    margin: auto;
 }
 
 .inner__input {
     box-sizing: border-box;
-    width: 400px;
+    width: 95%;
     height: 35px;
 }
 
 .inner__btn {
-    width: 400px;
+    width: 95%;
     height: 35px;
     color: white;
     background-color: #FF5555;

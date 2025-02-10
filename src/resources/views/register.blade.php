@@ -8,7 +8,7 @@
 <div class="flema-register">
     <div class="register-content">
         <h1>会員登録</h1>
-        <form action="/register" method="post">
+        <form class="register__form" action="/register" method="post">
             @csrf
             <div class="form-inner">
                 <p class="inner__txt">ユーザー名</p>
@@ -19,21 +19,21 @@
             </div>
             <div class="form-inner">
                 <p class="inner__txt">メールアドレス</p>
-                <input class="inner__input type="email" name="email" value="{{ old('email') }}">
+                <input class="inner__input" type="email" name="email" value="{{ old('email') }}">
                 @error('email')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
                 <p class="inner__txt">パスワード</p>
-                <input class="inner__input type="password" name="password">
+                <input class="inner__input" type="password" name="password">
                 @error('password')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-inner">
                 <p class="inner__txt">確認用パスワード</p>
-                <input class="inner__input type="password" name="password_confirmation">
+                <input class="inner__input" type="password" name="password_confirmation">
                 @error('password_confirmation')
                 <p class="error__message">{{ $message }}</p>
                 @enderror
