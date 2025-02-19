@@ -74,7 +74,7 @@ class LoginController extends Controller
             return redirect('/');
         }
 
-        return redirect('mypage/profile');
+        return redirect('/mypage/profile');
 
     }
 

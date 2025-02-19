@@ -31,7 +31,7 @@ class MyPageController extends Controller
         return view('profile_setting', compact('profile_id', 'profile'));
     }
 
-    public function set_up(ProfileRequest $request)
+    public function image_set_up(ProfileRequest $request)
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
 
@@ -39,13 +39,11 @@ class MyPageController extends Controller
 
         Profile::create([
             'user_id' => Auth::id(),
-            'name' => $request->user_name,
-            'post_code' => $request->post_code,
-            'address' => $request->address,
-            'building_name' => $request->building_name,
             'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
-        return redirect('/');
+
+
+        return redirect()->route('setting');
     }
 
     public function mypage(Request $request)
@@ -73,19 +71,6 @@ class MyPageController extends Controller
     {
         $user = Profile::where('user_id', Auth::id())->first();
 
-        // if(!$request->file('image'))
-        // {
-        //     $user->update([
-        //         'name' => $request->user_name,
-        //         'post_code' => $request->post_code,
-        //         'address' => $request->address,
-        //         'building_name' => $request->building_name,
-        //         'image' => $user->image
-        //     ]);
-
-        //     return redirect('/');
-        // }
-
         $user_image = $user->image;
         $path = substr($user_image, 20);
         Storage::disk('public')->delete('user_images/'.$path);
@@ -95,10 +80,6 @@ class MyPageController extends Controller
         $user_image = $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
 
         Profile::where('user_id', Auth::id())->update([
-            // 'name' => $request->user_name,
-            // 'post_code' => $request->post_code,
-            // 'address' => $request->address,
-            // 'building_name' => $request->building_name,
             'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
 
@@ -114,7 +95,16 @@ class MyPageController extends Controller
             'building_name' => $request->building_name,
         ]);
 
-        return redirect()->route('setting');
+        $profile = Profile::where('user_id', Auth::id())->first();
+
+        ShippingAddress::create([
+            'profile_id' => $profile->id,
+            'post_code' => $profile->post_code,
+            'address' => $profile->address,
+            'building_name' => $profile->building_name
+        ]);
+
+        return redirect('/');
     }
 
     public function comment(CommentRequest $request)

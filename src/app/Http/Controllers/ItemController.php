@@ -11,6 +11,7 @@ use App\Models\Nice;
 use App\Models\Profile;
 use App\Models\Comment;
 use App\Http\Requests\ExhibitionRequest;
+use App\Models\ShippingAddress;
 
 class ItemController extends Controller
 {
@@ -18,21 +19,17 @@ class ItemController extends Controller
     {
         $word = $request->search_word;
         $prm = $request->page;
-
-        if(!Auth::check() && $prm == 'mylist')
-        {
-            return view('item_all', compact('word', 'prm'));
-        }
+        $items = null;
 
         if(Auth::check() && $prm == 'mylist')
         {
             $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
-            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-            ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
+                ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+                ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
         }else{
             $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
-            ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-            ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
+                ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
+                ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
         }
             return view('item_all', compact('items', 'prm', 'word'));
     }
@@ -95,13 +92,14 @@ class ItemController extends Controller
     {
         $item = Item::where('id', $request->item_id)->first();
         $user = Profile::where('user_id', Auth::id())->first();
+        $shipping_addresses = ShippingAddress::where('profile_id', Auth::id())->get();
 
         if(is_null($user))
         {
             return back();
         }
 
-        return view('purchase', compact('item', 'user'));
+        return view('purchase', compact('item', 'user', 'shipping_addresses'));
     }
 
     public function address_change_top(Request $request)
@@ -110,13 +108,6 @@ class ItemController extends Controller
         $item = Item::find($request->item_id)->first();
 
         return view('address_change', compact('user', 'item'));
-    }
-
-    public function search(Request $request)
-    {
-        $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')->ItemSearch($request->search_word)->get();
-
-        return view('item_all', compact('items'));
     }
 
 }

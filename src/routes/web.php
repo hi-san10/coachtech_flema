@@ -18,6 +18,7 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
+Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
 
 Route::group(['middleware' => 'auth'], function()
 {
@@ -27,7 +28,6 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
 
-    Route::get('/mypage/profile/{id?}', [MyPageController::class, 'setting'])->name('setting');
 });
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
@@ -46,7 +46,7 @@ Route::get('/item/{item_id}', [ItemController::class, 'item_detail'])->name('ite
 
 Route::get('/verify/{email}', [LoginController::class, 'verify'])->name('verify');
 
-Route::post('/mypage/set_up', [MyPageController::class, 'set_up']);
+Route::post('/mypage/image/set_up', [MyPageController::class, 'image_set_up']);
 
 Route::patch('/mypage/image/update', [MyPageController::class, 'image_update']);
 

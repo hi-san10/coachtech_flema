@@ -24,6 +24,7 @@
                 <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
+        </div>
     </form>
     <form class="setting__form" action="/mypage/update" method="post">
         @method('patch')
@@ -56,11 +57,10 @@
             <div class="content__submit">
                 <button class="content__btn">更新する</button>
             </div>
-        </div>
     </form>
     <!-- 初ログイン後プロフィール未設定 -->
     @else
-    <form class="setting__form" action="/mypage/set_up" method="post" enctype="multipart/form-data">
+    <form class="setting__form" action="/mypage/image/set_up" method="post" enctype="multipart/form-data">
         @csrf
         <div class="profile_setting-content">
             <h1 class="profile__title">プロフィール設定</h1>
@@ -72,36 +72,30 @@
                 <p class="error__message img-error__message">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="content__item">
-                <p class="item__txt">ユーザー名</p>
-                <input class="item__input" type="text" name="user_name">
-                @error('user_name')
-                <p class="error__message">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="content__item">
-                <p class="item__txt">郵便番号</p>
-                <input class="item__input"type="text" name="post_code">
-                @error('post_code')
-                <p class="error__message">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="content__item">
-                <p class="item__txt">住所</p>
-                <input class="item__input" type="text" name="address">
-                @error('address')
-                <p class="error__message">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="content__item">
-                <p class="item__txt">建物名</p>
-                <input class="item__input" type="text" name="building_name">
-            </div>
             <div class="content__submit">
                 <button class="content__btn">更新する</button>
+                @error('image')
+                <p class="error__message">{{ $message }}</p>
+                @enderror
             </div>
         </div>
     </form>
+        <div class="content__item">
+            <p class="item__txt">ユーザー名</p>
+            <input class="item__input" type="text" readonly>
+        </div>
+        <div class="content__item">
+            <p class="item__txt">郵便番号</p>
+            <input class="item__input"type="text" readonly>
+        </div>
+        <div class="content__item">
+            <p class="item__txt">住所</p>
+            <input class="item__input" type="text" readonly>
+        </div>
+        <div class="content__item">
+            <p class="item__txt">建物名</p>
+            <input class="item__input" type="text" readonly>
+        </div>
     @endif
 </div>
 @endsection
