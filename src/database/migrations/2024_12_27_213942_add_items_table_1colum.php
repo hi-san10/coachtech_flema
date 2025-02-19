@@ -15,7 +15,6 @@ class AddItemsTable1colum extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             $table->foreignId('is_sold')->after('detail')->nullable()->constrained('users')->cascadeOnDelete();
-            // $table->integer('is_sold')->default(0)->comment('1=sold')->after('detail');
         });
     }
 

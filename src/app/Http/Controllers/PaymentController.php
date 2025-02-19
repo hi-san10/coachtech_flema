@@ -28,7 +28,7 @@ class PaymentController extends Controller
             ));
 
             Item::where('id', $request->item_id)->update([
-                'is_sold' => Auth::id()
+                'shipping_address_id' => $request->shipping_address_id
             ]);
 
 

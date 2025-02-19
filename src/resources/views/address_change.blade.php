@@ -14,14 +14,14 @@
                 <p class="inner__txt">郵便番号</p>
                 <input class="inner__input" type="text" name="post_code" value="{{ $user->post_code }}">
                 @error('post_code')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="content-inner">
                 <p class="inner__txt">住所</p>
                 <input class="inner__input" type="text" name="address" value="{{ $user->address }}">
                 @error('address')
-                <p>{{ $message }}</p>
+                <p class="error__message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="content-inner">

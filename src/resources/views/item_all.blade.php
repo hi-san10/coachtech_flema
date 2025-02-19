@@ -28,15 +28,16 @@
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">
                 <img src="{{ $item->image }}" alt="" class="item__img">{{ $item->name }}
             </a>
-            @if(!$item->is_sold == null)
+            @if(!$item->shipping_address_id == null)
             <p class="sold">sold</p>
             @endif
         </div>
         @else
         <div class="item_all__item">
-            <img src="{{ asset($item->storage_image) }}" alt="" class="item__img">
-            <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}</a>
-            @if(!$item->is_sold == null)
+            <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">{{ $item->name }}
+                <img src="{{ asset($item->storage_image) }}" alt="" class="item__img">
+            </a>
+            @if(!$item->shipping_address_id == null)
             <p class="sold">sold</p>
             @endif
         </div>

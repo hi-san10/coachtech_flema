@@ -53,6 +53,7 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="price" value="{{ $item->price }}">
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
+                <input type="hidden" name="shipping_address_id" value="{{ $user->id }}">
                         <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="{{ env('STRIPE_KEY') }}"

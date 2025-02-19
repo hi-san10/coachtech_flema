@@ -48,7 +48,7 @@ class MyPageController extends Controller
 
     public function mypage(Request $request)
     {
-        $profile = Profile::where('user_id', Auth::id())->exists();
+        $profile = Profile::where('user_id', Auth::id())->first();
         $prm = $request->page;
 
         if(!$profile)
@@ -56,7 +56,7 @@ class MyPageController extends Controller
             return redirect('/mypage/profile');
         }elseif($prm == 'buy')
         {
-            $items = Item::where('is_sold', Auth::id())->get();
+            $items = Item::where('shipping_address_id', $profile->id)->get();
         }else
         {
             $items = Item::where('user_id', Auth::id())->get();
@@ -134,15 +134,15 @@ class MyPageController extends Controller
 
         ShippingAddress::create([
             'profile_id' => $profile->id,
-            'item_id' => $request->item_id,
             'post_code' => $request->post_code,
             'address' => $request->address,
-            'building_name' => $request->building_name
+            'building_name' => $request->building_name,
+            'item_id' => '1'
         ]);
 
         $user = ShippingAddress::where('profile_id', $profile->id)->latest('id')->first();
         $item = Item::whereId($request->item_id)->first();
 
-        return view('purchase', compact('item', 'user'));
+        return view('purchase', compact('user', 'item'));
     }
 }

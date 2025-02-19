@@ -23,11 +23,11 @@ class ItemController extends Controller
 
         if(Auth::check() && $prm == 'mylist')
         {
-            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'shipping_address_id')
                 ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
                 ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
         }else{
-            $items = Item::select('id', 'name', 'image', 'storage_image', 'is_sold')
+            $items = Item::select('id', 'name', 'image', 'storage_image', 'shipping_address_id')
                 ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
                 ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
         }
@@ -105,7 +105,7 @@ class ItemController extends Controller
     public function address_change_top(Request $request)
     {
         $user = Profile::where('user_id', Auth::id())->first();
-        $item = Item::find($request->item_id)->first();
+        $item = Item::whereId($request->item_id)->first();
 
         return view('address_change', compact('user', 'item'));
     }
