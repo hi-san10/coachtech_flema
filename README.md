@@ -91,8 +91,7 @@
 ・ 商品とカテゴリーを結びつけた中間テーブルのダミーデータ17件分
 
 ・ ユーザーのダミーデータ1件分↓
-    ![Image](https://github.com/user-attachments/assets/d1778bf7-8c68-43ed-ac57-5e0652a6fffb)
-
+![Image](https://github.com/user-attachments/assets/fef256f3-d5c0-446a-8505-87e1527a9970)
 
 ## 使用技術
 
@@ -104,7 +103,7 @@
 
 ## ER図
 
-![68665E27-D515-47E8-A490-7EC4B65D6E67](https://github.com/user-attachments/assets/f58ca598-9b35-4f09-bc88-8b3a363d5455)
+![Image](https://github.com/user-attachments/assets/cf635c52-c126-42c2-a8cc-f72b315c29b3)
 
 ## テーブル仕様書
 ![Image](https://github.com/user-attachments/assets/f4395c14-6650-43fd-a1a6-efe420b14921)
