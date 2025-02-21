@@ -81,25 +81,17 @@
 
 6. php artisan db:seed
 
-・ 管理者と店舗代表者のメールアドレスとパスワードを画像からご確認ください
 
+・ 商品のダミーデータ10件分
 
-・ 管理者のダミーデータ↓
+・ 商品の状態(コンディション)のダミーデータ10件分
 
-![103985DE-3AFC-41D1-B28B-B189BDC8938A](https://github.com/user-attachments/assets/cf370312-651d-4836-94b7-b7154552033a)
+・ 商品のカテゴリーのダミーデータ14件分
 
-・ 店舗代表者のダミーデータ↓
-    ![FD5EA0FD-041B-4AEF-B432-22E28D01A9C7](https://github.com/user-attachments/assets/ad3966fc-6179-4ad1-84c8-c06de3f32963)
-    ![04B1E917-C4CF-48AF-910B-4D830017AE1E](https://github.com/user-attachments/assets/761d5d2d-7075-4a9a-82fc-d6607e250670)
-    ![05112EF6-A728-4446-BB89-E15254AA7D07](https://github.com/user-attachments/assets/ea45b5fe-2d70-4aaa-be4f-b36a69fef9be)
-    ![A93B5A1B-B63E-4FC8-A7BC-F8BCA12CEA87](https://github.com/user-attachments/assets/a66365ee-31e6-4599-98cd-2de535aacd1a)
-    ![FED2A9A7-3812-4C43-AB98-95DBED98E53A](https://github.com/user-attachments/assets/b1af28ea-7392-46c2-b236-10264c396df3)
+・ 商品とカテゴリーを結びつけた中間テーブルのダミーデータ17件分
 
-・ 店舗のダミーデータ20件分
-
-・ エリア(都道府県)のデータ47件分
-
-・ ジャンルのデータ5件分
+・ ユーザーのダミーデータ1件分↓
+    ![Image](https://github.com/user-attachments/assets/d1778bf7-8c68-43ed-ac57-5e0652a6fffb)
 
 
 ## 使用技術
@@ -115,11 +107,15 @@
 ![68665E27-D515-47E8-A490-7EC4B65D6E67](https://github.com/user-attachments/assets/f58ca598-9b35-4f09-bc88-8b3a363d5455)
 
 ## テーブル仕様書
+![Image](https://github.com/user-attachments/assets/f4395c14-6650-43fd-a1a6-efe420b14921)
 
-![368CB9FA-147A-4D91-9D24-022E0649C094](https://github.com/user-attachments/assets/bfc9375e-4bab-43df-a9db-433b8130d6ba)
-![917D21F8-6803-4C15-94C4-702D24E7793C](https://github.com/user-attachments/assets/2a361865-e6ef-4c53-bcea-a9df2842c3bf)
-![7592347D-D03A-4ED0-B3B2-FFC6243FB860](https://github.com/user-attachments/assets/756497af-bf88-4ed8-8d6a-e60fa67a0910)
-![20FC4574-AE0E-498E-A402-CEBD096EB953](https://github.com/user-attachments/assets/3d7d7014-563d-4b14-9512-4fea07add639)
+![Image](https://github.com/user-attachments/assets/4e09a092-369c-44ee-bf44-d4ed715b6259)
+
+![Image](https://github.com/user-attachments/assets/d7d13156-b32d-4eb5-b7dc-93408c3256e7)
+
+![Image](https://github.com/user-attachments/assets/bb529ba1-1b98-44c4-ae50-abc6bae9b15c)
+
+![Image](https://github.com/user-attachments/assets/3178cf4f-0999-4b5e-b2d3-487d01755437)
 
 ## URL
 
