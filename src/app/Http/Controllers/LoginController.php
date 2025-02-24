@@ -28,14 +28,38 @@ class LoginController extends Controller
     public function store(RegisterRequest $request)
     {
         $email = $request->email;
+        $password = $request->password;
+
         User::create([
             'name' => $request->name,
             'email' => $email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($password)
         ]);
         Mail::to($email)->send(new VerifyMail($email));
 
-        return view('thanks');
+        return view('/verification_email', compact('email', 'password'));
+    }
+
+    public function resend(Request $request)
+    {
+        $email = $request->verification_email;
+        Mail::to($email)->send(new VerifyMail($email));
+
+        return view('/verification_email', compact('email'));
+    }
+
+    public function certification(Request $request)
+    {
+        User::where('email', $request->email)->update(['email_verified_at' => CarbonImmutable::today()]);
+
+        $credentials = ([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+        Auth::attempt($credentials);
+        $request->session()->regenerate();
+
+        return redirect()->route('setting');
     }
 
     public function verify(Request $request)

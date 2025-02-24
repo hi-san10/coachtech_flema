@@ -1,0 +1,26 @@
+.content__txt {
+    text-align: center;
+    margin-top: 100px auto 60px auto;
+    font-weight: bold;
+}
+
+.content__link {
+    text-align: center;
+}
+
+.link__inner {
+    text-decoration: none;
+}
+
+.link-black {
+    color: black;
+    background-color: #d9d9d9;
+    border: solid black 0.5ox;
+    border-radius: 5px;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.link-blue {
+    color: #0073cc;
+}

@@ -31,16 +31,6 @@ class Item extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    // public function ScopeItemSearch($query, $word)
-    // {
-        // Item::when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'));
-
-        // if(!empty($search_word))
-        // {
-        //     $query->where('name', 'like', '%'.$search_word.'%');
-        // }
-    // }
-
     public function nices()
     {
         return $this->hasMany(Nice::class);

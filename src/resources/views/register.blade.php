@@ -8,7 +8,7 @@
 <div class="flema-register">
     <div class="register-content">
         <h1>会員登録</h1>
-        <form class="register__form" action="/register" method="post">
+        <form class="register__form" action="/verification_email/sent" method="post">
             @csrf
             <div class="form-inner">
                 <p class="inner__txt">ユーザー名</p>

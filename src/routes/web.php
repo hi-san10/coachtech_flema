@@ -40,7 +40,11 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/register', [LoginController::class, 'register_top']);
 
-Route::post('/register', [LoginController::class, 'store']);
+Route::post('/verification_email/sent', [LoginController::class, 'store']);
+
+Route::get('verification_email/resend/{verification_email}', [LoginController::class, 'resend'])->name('resend');
+
+Route::get('/verification_email/certification/{email}/{password}', [LoginController::class, 'certification'])->name('certification');
 
 Route::get('/item/{item_id}', [ItemController::class, 'item_detail'])->name('item_detail');
 
