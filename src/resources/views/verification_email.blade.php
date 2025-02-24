@@ -14,7 +14,7 @@
         <a class="link__inner link-black" href="{{ route('certification', ['email' => $email, 'password' => $password]) }}">認証はこちらから</a>
     </div>
     <div class="content__link">
-        <a class="link__inner link-blue" href="{{ route('resend', ['verification_email' => $email]) }}">認証メールを再送する</a>
+        <a class="link__inner link-blue" href="{{ route('resend', ['verification_email' => $email, 'password' => $password]) }}">認証メールを再送する</a>
     </div>
 </div>
 @endsection

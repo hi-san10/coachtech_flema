@@ -64,6 +64,7 @@ class ItemController extends Controller
 
         $categories = Category::all();
         $conditions = Condition::all();
+
         return view('sell', compact('categories', 'conditions'));
     }
 

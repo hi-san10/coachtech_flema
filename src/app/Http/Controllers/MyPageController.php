@@ -28,6 +28,7 @@ class MyPageController extends Controller
         }
 
         $profile = Profile::where('user_id', Auth::id())->first();
+
         return view('profile_setting', compact('profile_id', 'profile'));
     }
 
@@ -41,7 +42,6 @@ class MyPageController extends Controller
             'user_id' => Auth::id(),
             'image' => 'storage/user_images/user_'.Auth::id().'.'.$file_extension
         ]);
-
 
         return redirect()->route('setting');
     }

@@ -43,9 +43,10 @@ class LoginController extends Controller
     public function resend(Request $request)
     {
         $email = $request->verification_email;
+        $password = $request->password;
         Mail::to($email)->send(new VerifyMail($email));
 
-        return view('/verification_email', compact('email'));
+        return view('/verification_email', compact('email', 'password'));
     }
 
     public function certification(Request $request)
@@ -66,11 +67,13 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         $email_verified_at = $user->email_verified_at;
+
         if(is_null($email_verified_at))
         {
             User::where('email', $request->email)->update(['email_verified_at' => CarbonImmutable::today()]);
             return redirect('/login')->with('verify_message', 'ユーザー認証が完了しました');
         }
+
         return redirect('/login')->with('verify_message', 'ユーザー認証はお済みです');
     }
 
@@ -85,11 +88,11 @@ class LoginController extends Controller
         {
             return back()->with('message', 'ユーザー認証がお済みではありません');
         }
+
         $credentials = ([
             'email' => $request->email,
             'password' => $request->password
         ]);
-
         Auth::attempt($credentials);
         $request->session()->regenerate();
 

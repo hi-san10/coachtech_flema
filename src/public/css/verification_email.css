@@ -1,11 +1,12 @@
 .content__txt {
     text-align: center;
-    margin-top: 100px auto 60px auto;
+    margin-top: 100px;
     font-weight: bold;
 }
 
 .content__link {
     text-align: center;
+    margin-top: 50px;
 }
 
 .link__inner {

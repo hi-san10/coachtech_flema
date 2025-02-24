@@ -17,9 +17,12 @@ class NiceController extends Controller
                 'user_id' => Auth::id(),
                 'item_id' => $request->item_id
             ]);
+
             return back();
         }
+
         Nice::where('user_id', Auth::id())->where('item_id', $request->item_id)->delete();
+
         return back();
 
     }
