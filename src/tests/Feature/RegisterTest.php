@@ -10,37 +10,111 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterTest extends TestCase
 {
-/**
-     * カスタムリクエストのバリデーションテスト
-     *
-     * @param string 項目名
-     * @param string 値
-     * @param boolean 期待値(true:バリデーションOK、false:バリデーションNG)
-     * @dataProvider dataproviderExample
-     */
-    public function testExample($item, $data, $expect)
-    {
-        //入力項目（$item）とその値($data)
-        $dataList = [$item => $data];
+    use RefreshDatabase;
 
+    /**
+     * @dataProvider validationProvider
+     * @return void
+     */
+    public function testRegisterValidation($inData, $outFail, $outMessage)
+    {
+        $response = $this->get('/register');
+        $response->assertStatus(200);
         $request = new RegisterRequest();
-        //フォームリクエストで定義したルールを取得
         $rules = $request->rules();
-        //Validatorファサードでバリデーターのインスタンスを取得、その際に入力情報とバリデーションルールを引数で渡す
-        $validator = Validator::make($dataList, $rules);
-        //入力情報がバリデーショルールを満たしている場合はtrue、満たしていな場合はfalseが返る
-        // $result = $validator->passes();
-        //期待値($expect)と結果($result)を比較
-        // $this->assertEquals($expect, $result);
+        $messages = $request->messages();
+        $validator = Validator::make($inData, $rules, $messages);
+        $result = $validator->fails();
+        $this->assertEquals($outFail, $result);
+        $messages = $validator->errors()->getMessages();
+        $this->assertEquals($outMessage, $messages);
     }
 
-    public function dataproviderExample()
+    public function validationProvider()
     {
         return [
-            '未入力' => ['name', '', false],
-            '必須エラー' => ['password', '11111111', true],
-            //str_repeat('a', 256)で、256文字の文字列を作成(aが256個できる)
-            '最大文字数エラー' => ['name', str_repeat('a', 256), false],
+            'name_empty' => [
+                [
+                    'name' => '',
+                    'email' => 'aaaa@example.com',
+                    'password' => '12345678',
+                    'password_confirmation' => '12345678'
+                ],
+                true,
+                [
+                    'name' => ['お名前を入力してください'],
+                ],
+            ],
+            'email_empty' => [
+                [
+                    'name' => 'aaa',
+                    'email' => '',
+                    'password' => '12345678',
+                    'password_confirmation' => '12345678'
+
+                ],
+                true,
+                [
+                    'email' => ['メールアドレスを入力してください'],
+                ],
+            ],
+            'password_empty' => [
+                [
+                    'name' => 'aaa',
+                    'email' => 'aaaa@example.com',
+                    'password' => '',
+                    'password_confirmation' => '12345678'
+                ],
+                true,
+                [
+                    'password' => ['パスワードを入力してください'],
+                ],
+            ],
+            'password_mismatch' => [
+                [
+                    'name' => 'aaa',
+                    'email' => 'aaaa@example.com',
+                    'password' => '12345678',
+                    'password_confirmation' => '12345677'
+                ],
+                true,
+                [
+                    'password' => ['パスワードと一致しません']
+                ],
+            ],
+            'store' => [
+                [
+                    'name' => 'aaa',
+                    'email' => 'aaaa@example.com',
+                    'password' => '12345678',
+                    'password_confirmation' => '12345678'
+                ],
+                false,
+                [],
+            ],
+
         ];
+    }
+
+    public function testUserRegister()
+    {
+        $response = $this->get('/register');
+        $response->assertStatus(200);
+
+        $data = [
+            'name' => 'aaa',
+            'email' => 'aaaa@example.com',
+            'password' => '12345678',
+            'password_confirmation' => '12345678'
+        ];
+        $response = $this->postJson(route('store'), $data);
+
+        $response->assertViewIs('verification_email');
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'aaa',
+            'email' => 'aaaa@example.com'
+        ]);
     }
 }

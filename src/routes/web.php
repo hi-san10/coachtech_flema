@@ -40,7 +40,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/register', [LoginController::class, 'register_top']);
 
-Route::post('/verification_email/sent', [LoginController::class, 'store']);
+Route::post('/verification_email/sent', [LoginController::class, 'store'])->name('store');
 
 Route::get('verification_email/resend/{verification_email}/{password}', [LoginController::class, 'resend'])->name('resend');
 

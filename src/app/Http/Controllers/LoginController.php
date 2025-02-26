@@ -37,7 +37,7 @@ class LoginController extends Controller
         ]);
         Mail::to($email)->send(new VerifyMail($email));
 
-        return view('/verification_email', compact('email', 'password'));
+        return view('verification_email', compact('email', 'password'));
     }
 
     public function resend(Request $request)
@@ -46,7 +46,7 @@ class LoginController extends Controller
         $password = $request->password;
         Mail::to($email)->send(new VerifyMail($email));
 
-        return view('/verification_email', compact('email', 'password'));
+        return view('verification_email', compact('email', 'password'));
     }
 
     public function certification(Request $request)
