@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
@@ -45,6 +44,7 @@ class RegisterTest extends TestCase
                     'name' => ['お名前を入力してください'],
                 ],
             ],
+
             'email_empty' => [
                 [
                     'name' => 'aaa',
@@ -58,6 +58,7 @@ class RegisterTest extends TestCase
                     'email' => ['メールアドレスを入力してください'],
                 ],
             ],
+
             'password_empty' => [
                 [
                     'name' => 'aaa',
@@ -68,8 +69,24 @@ class RegisterTest extends TestCase
                 true,
                 [
                     'password' => ['パスワードを入力してください'],
+                    'password_confirmation' => ['パスワードと一致しません']
                 ],
             ],
+
+            'password_min' => [
+                [
+                    'name' => 'aaa',
+                    'email' => 'aaaa@example.com',
+                    'password' => '1234567',
+                    'password_confirmation' => '1234567'
+                ],
+                true,
+                [
+                    'password' => ['パスワードは8文字以上で入力してください'],
+                    'password_confirmation' => ['パスワードは8文字以上で入力してください']
+                ],
+            ],
+
             'password_mismatch' => [
                 [
                     'name' => 'aaa',
@@ -79,9 +96,10 @@ class RegisterTest extends TestCase
                 ],
                 true,
                 [
-                    'password' => ['パスワードと一致しません']
+                    'password_confirmation' => ['パスワードと一致しません']
                 ],
             ],
+
             'store' => [
                 [
                     'name' => 'aaa',
