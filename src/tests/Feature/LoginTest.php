@@ -3,13 +3,9 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-// use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Validator;
-// use Database\Seeders\UsersTableSeeder;
-use Illuminate\Support\Facades\Hash;
-// use Database\Factories\UserFactory;
 use App\Models\User;
 
 class LoginTest extends TestCase
