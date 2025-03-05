@@ -71,9 +71,9 @@ class ItemController extends Controller
     public function sell(ExhibitionRequest $request)
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
-        $item_image = $request->file('image')->storeAs('public/item_images', 'user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension);
+        $request->file('image')->storeAs('public/item_images', 'user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension);
 
-        $item = Item::create([
+        Item::create([
             'user_id' => Auth::id(),
             'condition_id' => $request->condition_id,
             'name' => $request->item_name,

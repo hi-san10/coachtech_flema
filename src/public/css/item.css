@@ -144,6 +144,10 @@
     font-weight: bold;
 }
 
+.error_message {
+    color: red;
+}
+
 textarea {
     width: 100%;
 }

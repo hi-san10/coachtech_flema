@@ -91,7 +91,7 @@
                         <p class="item__comment">商品へのコメント</p>
                         <textarea name="comment" rows="10"></textarea>
                         @error('comment')
-                        <p>{{ $message }}</p>
+                        <p class="error_message">{{ $message }}</p>
                         @enderror
                         <button class="comment__link">コメントを送信する</button>
                     </div>

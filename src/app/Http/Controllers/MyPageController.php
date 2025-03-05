@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
-use App\Models\Nice;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Comment;
@@ -36,7 +34,7 @@ class MyPageController extends Controller
     {
         $file_extension = $request->file('image')->getClientOriginalExtension();
 
-        $user_image = $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
+        $request->file('image')->storeAs('public/user_images', 'user_'.Auth::id().'.'.$file_extension);
 
         Profile::create([
             'user_id' => Auth::id(),

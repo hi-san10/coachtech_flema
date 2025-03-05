@@ -14,10 +14,10 @@
             </div>
             <div class="sell-image">
                 <p>商品画像</p>
-                <label class="img__label"for="img"><span class="label__txt">画像を選択する</span></label>
+                <label class="img__label" for="img"><span class="label__txt">画像を選択する</span></label>
                 <input type="file" name="image" id="img" onchange="itemChange()">
                 @error('image')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="detail__txt">
@@ -32,7 +32,7 @@
                     @endforeach
                 </div>
                 @error('categories')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="sell-condition">
@@ -44,7 +44,7 @@
                     @endforeach
                 </select>
                 @error('condition_id')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="detail__txt">
@@ -55,19 +55,19 @@
                 <p class="sell__txt">商品名</p>
                 <input class="sell__input" type="text" name="item_name">
                 @error('item_name')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
                 <p class="sell__txt">商品の説明</p>
                 <textarea class="sell__input" name="detail" rows="8"></textarea>
                 @error('detail')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
                 <p class="sell__txt">商品のブランド</p>
                 <input class="sell__input" type="text" name="brand_name">
                 <p class="sell__txt">販売価格</p>
                 <input class="sell__input" type="text" name="price" placeholder="¥">
                 @error('price')
-                <p>{{ $message }}</p>
+                <p class="error_message">{{ $message }}</p>
                 @enderror
             </div>
             <button class="sell__btn">出品する</button>
