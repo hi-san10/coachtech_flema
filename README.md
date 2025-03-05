@@ -9,8 +9,6 @@
 
 ・ ログイン
 
-<!-- ・ 管理者ログイン -->
-
 ・ ログアウト
 
 ・ 商品一覧取得
@@ -72,7 +70,25 @@
     ・.envにコピーした情報を貼り付ける
         ![75F1C55F-FC14-46BE-898D-9C25817259E9](https://github.com/user-attachments/assets/571e1894-4346-4b98-883d-af7e577a743e)
 
-    ・php artisan config:clear　で.env情報を更新
+
+    ・stripeで決済機能をテストする場合
+
+    ・stripe url:[https://stripe.com/jp](https://stripe.com/jp)
+
+    ・ユーザー登録を済ませ、ダッシュボードへ
+
+    ・画面右上の「テスト環境」にチェックを入れる
+
+    ・テスト環境の「公開可能キー」と「シークレットキー」をそれぞれ .env に設定する
+        ![Image](https://github.com/user-attachments/assets/b635f4c9-ae66-4868-937e-1e56ffcd278f)
+
+    ・決済画面で使用するテスト用のカード番号 4242 4242 4242 4242
+
+    ・有効期限は可能な範囲での数字 10/25->〇 13/22->×
+
+    ・セキュリティーコードは適当な数字3つ
+
+    ・php artisan config:clear で.env情報を更新
 
 
 4. php artisan key:generate
