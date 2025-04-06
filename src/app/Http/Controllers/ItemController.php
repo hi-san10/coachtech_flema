@@ -12,6 +12,7 @@ use App\Models\Profile;
 use App\Models\Comment;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\ShippingAddress;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -70,18 +71,32 @@ class ItemController extends Controller
 
     public function sell(ExhibitionRequest $request)
     {
-        $file_extension = $request->file('image')->getClientOriginalExtension();
-        $request->file('image')->storeAs('public/item_images', 'user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension);
-
-        Item::create([
+        $sellItem = Item::create([
             'user_id' => Auth::id(),
             'condition_id' => $request->condition_id,
             'name' => $request->item_name,
             'price' => $request->price,
             'brand_name' => $request->brand_name,
             'detail' => $request->detail,
-            'storage_image' => 'storage/item_images/user_'.Auth::id().'.'.$request->item_name.'.'.$file_extension
         ]);
+
+        $file_extension = $request->file('image')->getClientOriginalExtension();
+        $file = $request->file('image');
+
+        if(config('app.env') == 'local')
+        {
+            $file->storeAs('public/item_images', 'user_' . Auth::id() . '.' . $request->item_name . '.' . $file_extension);
+            $sellItem->update([
+                'storage_image' => 'storage/item_images/user_' . Auth::id() . '.' . $request->item_name . '.' . $file_extension
+            ]);
+        }else{
+            $dir = 'flema_item';
+            $uploadFile = Storage::disk('s3')->putFileAs($dir, $file, 'flema_'.Auth::id().'.'.$file_extension);
+
+            $sellItem->update([
+                'storage_image' => $uploadFile
+            ]);
+        }
 
         $items = Item::where('user_id', Auth::id())->latest('id')->first();
         $items->category()->sync($request->categories);
