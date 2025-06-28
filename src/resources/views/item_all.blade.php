@@ -35,7 +35,11 @@
         @else
         <div class="item_all__item">
             <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">
+                @if(config('app.env') == 'local')
                 <img src="{{ asset($item->storage_image) }}" alt="" class="item__img">{{ $item->name }}
+                @else
+                <img  src="{{ Storage::disk('s3')->url($item->storage_image) }}" alt="" class="item__img">{{ $item->name }}
+                @endif
             </a>
             @if(!$item->shipping_address_id == null)
             <p class="sold">sold</p>

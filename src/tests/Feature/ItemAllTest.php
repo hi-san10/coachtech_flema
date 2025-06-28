@@ -30,11 +30,13 @@ class ItemAllTest extends TestCase
             'address' => $this->faker->streetAddress(),
             'image' => $this->faker->imageUrl()
         ]);
+
         ShippingAddress::factory(3)->create([
             'profile_id' => rand(1, 3),
             'post_code' => $this->faker->postcode(),
             'address' => $this->faker->streetAddress(),
         ]);
+
         Condition::factory(4)->create([
             'condition' => $this->faker->sentence(8)
         ]);
