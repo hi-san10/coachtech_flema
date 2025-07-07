@@ -13,6 +13,28 @@ class PaymentController extends Controller
     public function charge(Request $request)
     {
         try {
+            // $intent = \Stripe\PaymentIntent::create([
+            //     'amount' => $request->price,
+            //     'currency' => 'jpy',
+            // ]);
+
+            // stripe.confirmCardPayment(
+            //     INTENT_SECRET_FROM_STEP_1,
+            //     {
+            //       payment_method: {card: cardElement}
+            //     }
+            //   ).then(function(result) {
+            //     if (result.error) {
+            //       // Display error.message in your UI.
+            //     } else {
+            //       // The payment has succeeded
+            //       // Display a success message
+            //     }
+            //   });
+
+            // Set your secret key. Remember to switch to your live secret key in production.
+            // See your keys here: https://dashboard.stripe.com/apikeys
+            $stripe = new \Stripe\StripeClient('sk_test_51QFoY301NmQJN50w0GqgtG3vFYdzr0qRnbJ5I4NCoO751TzT4g0j8Cei15tN5mE1zjMOyocVxmY42BLBmfFbGi7i00EW8JdKpj');
             Stripe::setApiKey(env('STRIPE_SECRET'));
 
             $customer = Customer::create(array(
@@ -20,11 +42,20 @@ class PaymentController extends Controller
                 'source' => $request->stripeToken
             ));
 
-            $charge = Charge::create(array(
-                'customer' => $customer->id,
+            $paymentIntent = $stripe->paymentIntents->create([
                 'amount' => $request->price,
-                'currency' => 'jpy'
-            ));
+                'currency' => 'jpy',
+                'payment_method_types' => ['card'],
+                'setup_future_usage' => 'off_session',
+                'customer' => $customer->id
+            ]);
+
+
+            // $charge = Charge::create(array(
+            //     'customer' => $customer->id,
+            //     'amount' => $request->price,
+            //     'currency' => 'jpy'
+            // ));
 
             Item::where('id', $request->item_id)->update([
                 'shipping_address_id' => $request->shipping_address_id
