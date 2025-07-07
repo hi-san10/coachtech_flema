@@ -7,6 +7,7 @@ use Stripe\stripe;
 use Stripe\Customer;
 use Stripe\Charge;
 use App\Models\Item;
+use App\Models\Transaction;
 
 class PaymentController extends Controller
 {
@@ -61,6 +62,9 @@ class PaymentController extends Controller
                 'shipping_address_id' => $request->shipping_address_id
             ]);
 
+            Transaction::create([
+                'item_id' => $request->item_id
+            ]);
 
             return redirect('/');
         } catch (\Exception $ex) {

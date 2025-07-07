@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Models\ShippingAddress;
 use App\Http\Requests\AddressChangeRequest;
+use App\Models\Transaction;
 
 class MyPageController extends Controller
 {
@@ -52,17 +53,19 @@ class MyPageController extends Controller
         if(!$profile)
         {
             return redirect('/mypage/profile');
-        }elseif($prm == 'buy')
-        {
+        }elseif ($prm == 'buy'){
             $items = Item::where('shipping_address_id', $profile->id)->get();
-        }else
-        {
+        }elseif ($prm == 'transaction'){
+            $items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
+        }else{
             $items = Item::where('user_id', Auth::id())->get();
         }
 
         $user = Profile::where('user_id', Auth::id())->first();
+        $count = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->count();
 
-        return view('mypage', compact('user', 'items', 'prm'));
+
+        return view('mypage', compact('user', 'items', 'prm', 'count'));
     }
 
     public function image_update(ProfileRequest $request)
