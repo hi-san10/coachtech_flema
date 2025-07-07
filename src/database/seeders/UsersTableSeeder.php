@@ -16,18 +16,35 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+
         $content = [
-            'name' => '丸山',
-            'email' => 'm@m.com',
-            'password' => Hash::make('00000000'),
+            'name' => 'ユーザー1',
+            'email' => 'user1@mail.com',
+            'password' => Hash::make('11111111'),
             'email_verified_at' => CarbonImmutable::today()
         ];
         DB::table('users')->insert($content);
 
         $content = [
-            'name' => '佐藤',
-            'email' => 's@s.com',
-            'password' => Hash::make('99999999'),
+            'name' => 'ユーザー2',
+            'email' => 'user2@mail.com',
+            'password' => Hash::make('22222222'),
+            'email_verified_at' => CarbonImmutable::today()
+        ];
+        DB::table('users')->insert($content);
+
+        $content = [
+            'name' => 'ユーザー3',
+            'email' => 'user3@mail.com',
+            'password' => Hash::make('33333333'),
+            'email_verified_at' => CarbonImmutable::today()
+        ];
+        DB::table('users')->insert($content);
+
+        $content = [
+            'name' => '丸山',
+            'email' => 'm@m',
+            'password' => Hash::make('00000000'),
             'email_verified_at' => CarbonImmutable::today()
         ];
         DB::table('users')->insert($content);
