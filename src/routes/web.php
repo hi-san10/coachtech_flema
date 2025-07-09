@@ -71,3 +71,4 @@ Route::post('/charge', [PaymentController::class, 'charge']);
 
 Route::get('/transaction_top/{item_id}/{shipping_id}', [TransactionController::class, 'transactionTop'])->name('transaction_top');
 
+Route::get('/transaction/post/{item_id}', [TransactionController::class, 'post'])->name('post');

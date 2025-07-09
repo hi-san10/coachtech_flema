@@ -20,9 +20,24 @@ class TransactionController extends Controller
         $profile = Profile::where('user_id', Auth::id())->first();
         $transaction_items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
 
-        $transaction_message_id = Transaction::where('item_id', $item->id)->first();
-        $transaction_messages = TransactionMessage::with('user.profile')->where('transaction_id', $transaction_message_id)->get();
+        $transaction = Transaction::where('item_id', $item->id)->first();
+        $transaction_messages = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->get();
 
         return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'transaction_messages'));
+    }
+
+    public function post(Request $request)
+    {
+        $item = Item::where('id', $request->item_id)->first();
+        $transaction = Transaction::where('item_id', $item->id)->first();
+
+        TransactionMessage::create([
+            'transaction_id' => $transaction->id,
+            'user_id' => Auth::id(),
+            'message' => $request->message,
+
+        ]);
+
+        return redirect()->route('transaction_top', ['item_id' => $item->id, 'shipping_id' => $item->shipping_address_id]);
     }
 }

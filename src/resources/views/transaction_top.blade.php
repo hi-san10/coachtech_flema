@@ -47,8 +47,8 @@
             @endforeach
         </div>
         <div class="message-send_bar">
-            <form action="" class="message__form">
-                <input type="text" class="message" placeholder="取引メッセージを入力してください">
+            <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form">
+                <input type="text" name="message" class="message" placeholder="取引メッセージを入力してください">
                 <input type="file" class="img">
                 <input type="submit">
             </form>
