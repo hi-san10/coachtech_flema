@@ -30,6 +30,22 @@
                 <p class="list__border"></p>
             </div>
             <div class="items">
+                @if ($prm == 'transaction')
+                @foreach($items as $item)
+                <div class="sell-item">
+                    @if($item->image)
+                    <a class="item_name" href="{{ route('transaction_top', ['item_id' => $item->item_id, 'shipping_id' => $item->shipping_address_id]) }}">
+                        <img class="item__img" src="{{ $item->image }}" alt="">
+                    </a>
+                    @else
+                    <a class="item_name" href="{{ route('transaction_top', ['item_id' => $item->item_id, 'shipping_id' => $item->shipping_address_id]) }}">
+                        <img class="item__img" src="{{ asset($item->storage_image) }}" alt="">
+                    </a>
+                    @endif
+                    <p class="item_name">{{ $item->name }}</p>
+                </div>
+                @endforeach
+                @else
                 @foreach($items as $item)
                 <div class="sell-item">
                     @if($item->image)
@@ -40,6 +56,7 @@
                     <p class="item_name">{{ $item->name }}</p>
                 </div>
                 @endforeach
+                @endif
             </div>
         </div>
     </div>

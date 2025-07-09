@@ -16,4 +16,9 @@ class ShippingAddress extends Model
         'building_name'
     ];
 
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
+
 }

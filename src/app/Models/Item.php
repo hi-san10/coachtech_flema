@@ -35,4 +35,9 @@ class Item extends Model
     {
         return $this->hasMany(Nice::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

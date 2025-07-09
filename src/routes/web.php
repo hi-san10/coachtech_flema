@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\NiceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,6 @@ Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_chang
 Route::post('/shipping_address/{item_id}', [MyPageController::class, 'change_shipping_address'])->name('change_shipping_address');
 
 Route::post('/charge', [PaymentController::class, 'charge']);
+
+Route::get('/transaction_top/{item_id}/{shipping_id}', [TransactionController::class, 'transactionTop'])->name('transaction_top');
 
