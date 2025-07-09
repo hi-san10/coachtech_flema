@@ -5,12 +5,14 @@
 
 @section('content')
 <div class="transaction_top-container">
+    <!-- その他の取引 -->
     <div class="sidebar">
         <p class="sidebar-title">その他の取引</p>
         @foreach ($transaction_items as $transaction_item)
         <a href="{{ route('transaction_top', ['item_id' => $transaction_item->item_id, 'shipping_id' => $transaction_item->shipping_address_id]) }}" class="transaction__link">{{ $transaction_item->name }}</a>
         @endforeach
     </div>
+    <!-- 当取引 -->
     <div class="main-content">
         <div class="content-title">
             @if ($item->user_id == Auth::id())
@@ -35,6 +37,7 @@
                 <p class="item-price">{{ $item->price }}</p>
             </div>
         </div>
+        <!-- 取引メッセージ -->
         <div class="transaction-message">
             @if (isset($transaction_messages))
             @foreach ($transaction_messages as $transaction_message)
@@ -57,13 +60,15 @@
                     @method('patch')
                     @csrf
                     <input type="text" name="update_message" placeholder="{{ $last_message->message }}">
-                    <input type="submit">
+                    <input type="submit" value="編集">
                 </form>
+                <a href="{{ route('delete_message', ['message_id' => $last_message->id]) }}">削除</a>
                 @endif
             </div>
             @endif
             @endif
         </div>
+        <!-- メッセージ送信欄 -->
         <div class="message-send_bar">
             <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form" method="post">
                 @csrf

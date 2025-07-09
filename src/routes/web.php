@@ -75,3 +75,5 @@ Route::get('/transaction_top/{item_id}/{shipping_id}', [TransactionController::c
 Route::post('/transaction/post/{item_id}', [TransactionController::class, 'post'])->name('post');
 
 Route::patch('/transaction/post/update/{message_id}', [TransactionController::class, 'update'])->name('update_message');
+
+Route::get('/transaction/post/delete{message_id}', [TransactionController::class, 'delete'])->name('delete_message');

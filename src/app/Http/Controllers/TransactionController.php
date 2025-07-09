@@ -49,8 +49,16 @@ class TransactionController extends Controller
 
     public function update(Request $request)
     {
-        $t = TransactionMessage::where('id', $request->message_id)
+        TransactionMessage::where('id', $request->message_id)
             ->update(['message' => $request->update_message]);
+
+        return redirect()->route('mypage', ['page' => 'transaction']);
+    }
+
+    public function delete(Request $request)
+    {
+        TransactionMessage::where('id', $request->message_id)
+            ->delete();
 
         return redirect()->route('mypage', ['page' => 'transaction']);
     }
