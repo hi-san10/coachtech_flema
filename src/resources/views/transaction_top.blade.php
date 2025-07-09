@@ -36,6 +36,7 @@
             </div>
         </div>
         <div class="transaction-message">
+            @if (isset($transaction_messages))
             @foreach ($transaction_messages as $transaction_message)
             <div class="message-user">
                 <img src="{{ $transaction_message->user->profile->image }}" alt="" class="message-user__img">
@@ -45,9 +46,27 @@
                 <p class="message-content__inner">{{ $transaction_message->message }}</p>
             </div>
             @endforeach
+            @if ($last_message)
+            <div class="last_message">
+                @if ($transaction_message->user_id == Auth::id())
+                <div class="message-user">
+                    <img src="{{ $last_message->user->profile->image }}" alt="" class="message-user__img">
+                    <p class="message-user__name">{{ $last_message->user->profile->name }}</p>
+                </div>
+                <form action="{{ route('update_message', ['message_id' => $last_message->id]) }}" method="post">
+                    @method('patch')
+                    @csrf
+                    <input type="text" name="update_message" placeholder="{{ $last_message->message }}">
+                    <input type="submit">
+                </form>
+                @endif
+            </div>
+            @endif
+            @endif
         </div>
         <div class="message-send_bar">
-            <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form">
+            <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form" method="post">
+                @csrf
                 <input type="text" name="message" class="message" placeholder="取引メッセージを入力してください">
                 <input type="file" class="img">
                 <input type="submit">

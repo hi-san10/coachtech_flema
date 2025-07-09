@@ -57,7 +57,6 @@ class MyPageController extends Controller
             $items = Item::where('shipping_address_id', $profile->id)->get();
         }elseif ($prm == 'transaction'){
             $items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
-            // dd($items);
         }else{
             $items = Item::where('user_id', Auth::id())->get();
         }

@@ -21,9 +21,15 @@ class TransactionController extends Controller
         $transaction_items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
 
         $transaction = Transaction::where('item_id', $item->id)->first();
-        $transaction_messages = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->get();
+        $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();
+        if ($last_message){
+            $transaction_messages = TransactionMessage::with('user.profile')->where('id', '<>', $last_message->id)->where('transaction_id', $transaction->id)->get();
 
-        return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'transaction_messages'));
+        }else{
+            $transaction_messages = null;
+        }
+
+        return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'last_message', 'transaction_messages'));
     }
 
     public function post(Request $request)
@@ -39,5 +45,13 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('transaction_top', ['item_id' => $item->id, 'shipping_id' => $item->shipping_address_id]);
+    }
+
+    public function update(Request $request)
+    {
+        $t = TransactionMessage::where('id', $request->message_id)
+            ->update(['message' => $request->update_message]);
+
+        return redirect()->route('mypage', ['page' => 'transaction']);
     }
 }
