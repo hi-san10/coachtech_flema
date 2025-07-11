@@ -16,6 +16,8 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('buyer_id')->references('id')->on('profiles')->constrained()->cascadeOnDelete();
+            $table->foreignId('seller_id')->references('id')->on('profiles')->constrained()->cascadeOnDelete();
             $table->boolean('is_completion')->default(0);
             $table->timestamps();
         });

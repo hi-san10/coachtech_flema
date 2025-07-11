@@ -13,4 +13,14 @@ class Transaction extends Model
         'item_id',
         'is_completion'
     ];
+
+    public function transaction_messages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

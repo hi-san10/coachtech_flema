@@ -56,7 +56,20 @@ class MyPageController extends Controller
         }elseif ($prm == 'buy'){
             $items = Item::where('shipping_address_id', $profile->id)->get();
         }elseif ($prm == 'transaction'){
-            $items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
+            // $items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
+// 処理見直し
+            $items = Transaction::with('transaction_messages', 'item')->whereHas('item', function($query)
+            {
+                $profile = Profile::where('user_id', Auth::id())->first();
+
+                $query->where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id());
+            })->where('is_completion', 'false')->whereHas('transaction_messages', function($query)
+            {
+                $query->where('user_id', '<>', Auth::id())->orWhere('user_id', Auth::id());
+            })->latest()->get();
+            // ->join('items', 'transactions.item_id', '=', 'items.id')->get();
+            // Transaction::where('is_completion', 'false')->get();
+            // dd($items);
         }else{
             $items = Item::where('user_id', Auth::id())->get();
         }

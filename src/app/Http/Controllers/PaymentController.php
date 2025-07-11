@@ -8,6 +8,8 @@ use Stripe\Customer;
 use Stripe\Charge;
 use App\Models\Item;
 use App\Models\Transaction;
+use App\Models\TransactionMessage;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -62,8 +64,17 @@ class PaymentController extends Controller
                 'shipping_address_id' => $request->shipping_address_id
             ]);
 
-            Transaction::create([
-                'item_id' => $request->item_id
+            $seller = Item::with('user.profile')->where('id', $request->item_id)->first();
+            $transaction = Transaction::create([
+                'item_id' => $request->item_id,
+                'buyer_id' => $request->shipping_address_id,
+                'seller_id' => $seller->user->profile->id
+            ]);
+
+            TransactionMessage::create([
+                'transaction_id' => $transaction->id,
+                'user_id' => Auth::id(),
+                'message' => '商品を購入しました'
             ]);
 
             return redirect('/');

@@ -22,6 +22,7 @@ class TransactionController extends Controller
 
         $transaction = Transaction::where('item_id', $item->id)->first();
         $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();
+        // dd($last_message);
         if ($last_message){
             $transaction_messages = TransactionMessage::with('user.profile')->where('id', '<>', $last_message->id)->where('transaction_id', $transaction->id)->get();
 
