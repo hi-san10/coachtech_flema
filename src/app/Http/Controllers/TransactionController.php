@@ -23,7 +23,7 @@ class TransactionController extends Controller
 
         $profile = Profile::where('user_id', Auth::id())->first();
 
-        $transaction_items = Item::where('item_id', '!=', $item->id)->where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('buyer_completion', 'false')->get();
+        $transaction_items = Item::where('item_id', '!=', $item->id)->where('buyer_completion', 'false')->where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->get();
 
         $transaction = Transaction::with('item')->where('item_id', $item->id)->first();
         $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();

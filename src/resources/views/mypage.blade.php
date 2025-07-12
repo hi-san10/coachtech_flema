@@ -52,8 +52,7 @@
                     </a>
                     @endif
                     <p class="item_name">{{ $item->name }}</p>
-                    <!-- メッセージカウント数のcss -->
-                    <p>{{ $item->other_user_message_count }}</p>
+                    <span class="message_count">{{ $item->other_user_message_count }}</span>
                 </div>
                 @endforeach
                 @else

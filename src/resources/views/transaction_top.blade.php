@@ -5,6 +5,7 @@
 
 @section('content')
 <div class="transaction_top-container">
+    <!-- 商品購入者が取引完了後に表示 -->
     @if ($transaction->buyer_completion == true)
     <div class="evaluation" id="evaluation">
         <p>取引が完了しました。</p>

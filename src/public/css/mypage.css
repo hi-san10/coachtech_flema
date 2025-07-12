@@ -89,14 +89,31 @@
     margin: 0;
 }
 
+.message_count {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    width: 10%;
+    aspect-ratio: 1/1;
+    text-align: center;
+    line-height: 200%;
+}
+
 .transaction_count {
     background-color: red;
     color: white;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
-    width: 20px;
+    width: 2%;
+    aspect-ratio: 1/1;
     margin-left: 10px;
+    line-height: 200%;
+    max-width: 30px;
+    max-height: 30px;
 }
 
 @media screen and (max-width: 850px) {

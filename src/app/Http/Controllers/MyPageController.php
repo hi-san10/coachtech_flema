@@ -60,11 +60,13 @@ class MyPageController extends Controller
             return redirect('/mypage/profile');
         }elseif ($prm == 'buy'){
             $items = Item::where('shipping_address_id', $prf_id)->get();
-            $total_message = Transaction::where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
-                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
-                ->whereHas('transaction_messages', function ($query) {
+
+            $total_message = Transaction::whereHas('transaction_messages', function ($query) {
                     $query->where('user_id', '!=', Auth::id());
-                })->count();
+                })
+                ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
+                ->count();
         }elseif ($prm == 'transaction'){
             $baseQuery = DB::table('Transactions')
                 ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
@@ -91,12 +93,13 @@ class MyPageController extends Controller
             $total_message = $items->sum('other_user_message_count');
         }else{
             $items = Item::where('user_id', $user_id)->get();
-            $total_message = Transaction::where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
-                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
-                ->whereHas('transaction_messages', function ($query)
+            $total_message = Transaction::whereHas('transaction_messages', function ($query)
                 {
                     $query->where('user_id', '!=', Auth::id());
-                })->count();
+                })
+                ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
+                ->count();
         }
 
         $message_count = Transaction::withCount('transaction_messages')
