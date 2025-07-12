@@ -87,7 +87,7 @@ class TransactionController extends Controller
             'point' => $request->point
         ]);
 
-        return redirect()->route('mypage');
+        return redirect('/');
     }
 
     public function sellerEvaluation(Request $request)
@@ -103,6 +103,6 @@ class TransactionController extends Controller
             'point' => $request->point
         ]);
 
-        return redirect()->route('mypage');
+        return redirect('/');
     }
 }

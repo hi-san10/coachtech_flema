@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="transaction_top-container">
-    @if ($transaction->buyer_id == true)
+    @if ($transaction->buyer_completion == true)
     <div class="evaluation" id="evaluation">
         <p>取引が完了しました。</p>
         <small>今回の取引相手はどうでしたか？</small>
