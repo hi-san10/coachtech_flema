@@ -74,7 +74,7 @@ class TransactionController extends Controller
         return redirect()->route('transaction_top', ['item_id' => $request->item_id, 'shipping_id' => $request->shipping_id]);
     }
 
-    public function evaluation(Request $request)
+    public function buyerEvaluation(Request $request)
     {
         $transaction = Transaction::find($request->transaction_id);
 
@@ -84,6 +84,22 @@ class TransactionController extends Controller
         Evaluation::create([
             'transaction_id' => $transaction->id,
             'profile_id' => $transaction->seller_id,
+            'point' => $request->point
+        ]);
+
+        return redirect()->route('mypage');
+    }
+
+    public function sellerEvaluation(Request $request)
+    {
+        $transaction = Transaction::find($request->transaction_id)->first();
+
+        Transaction::where('id', $transaction->id)
+            ->update(['seller_completion' => true]);
+
+        Evaluation::create([
+            'transaction_id' => $transaction->id,
+            'profile_id' => $transaction->buyer_id,
             'point' => $request->point
         ]);
 

@@ -5,6 +5,26 @@
 
 @section('content')
 <div class="transaction_top-container">
+    @if ($transaction->buyer_id == true)
+    <div class="evaluation" id="evaluation">
+        <p>取引が完了しました。</p>
+        <small>今回の取引相手はどうでしたか？</small>
+        <form action="{{ route('seller_evaluation', ['transaction_id' => $transaction->id]) }}" method="post">
+            @csrf
+            <input type="radio" name="point" class="point-star__input" id="star1" value="1">
+            <label for="star1" class="point-star__label">☆</label>
+            <input type="radio" name="point" class="point-star__input" id="star2" value="2">
+            <label for="star2" class="point-star__label">☆</label>
+            <input type="radio" name="point" class="point-star__input" id="star3" value="3">
+            <label for="star3" class="point-star__label">☆</label>
+            <input type="radio" name="point" class="point-star__input" id="star4" value="4">
+            <label for="star4" class="point-star__label">☆</label>
+            <input type="radio" name="point" class="point-star__input" id="star5" value="5">
+            <label for="star5" class="point-star__label">☆</label>
+            <input type="submit" class="submit">
+        </form>
+    </div>
+    @endif
     <!-- その他の取引 -->
     <div class="sidebar">
         <p class="sidebar-title">その他の取引</p>
@@ -25,7 +45,7 @@
             <div class="evaluation" id="evaluation">
                 <p>取引が完了しました。</p>
                 <small>今回の取引相手はどうでしたか？</small>
-                <form action="{{ route('evaluation', ['transaction_id' => $transaction->id]) }}" method="post">
+                <form action="{{ route('buyer_evaluation', ['transaction_id' => $transaction->id]) }}" method="post">
                     @csrf
                     <input type="radio" name="point" class="point-star__input" id="star1" value="1">
                     <label for="star1" class="point-star__label">☆</label>
@@ -39,7 +59,6 @@
                     <label for="star5" class="point-star__label">☆</label>
                     <input type="submit" class="submit">
                 </form>
-
             </div>
             @endif
         </div>

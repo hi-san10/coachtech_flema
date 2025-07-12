@@ -81,4 +81,6 @@ Route::get('/transaction/post/delete{message_id}', [TransactionController::class
 
 // Route::get('/transaction/end/{transaction_id}/{item_id}/{shipping_id}', [TransactionController::class, 'transactionEnd'])->name('transaction_end');
 
-Route::post('transaction/evaluation/{transaction_id}', [TransactionController::class, 'evaluation'])->name('evaluation');
+Route::post('transaction/evaluation/buyer/{transaction_id}', [TransactionController::class, 'buyerEvaluation'])->name('buyer_evaluation');
+
+Route::post('/transaction/evaluation/seller/{transaction_id}', [TransactionController::class, 'sellerEvaluation'])->name('seller_evaluation');
