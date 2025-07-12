@@ -18,7 +18,8 @@ class Transaction extends Model
 
     public function transaction_messages()
     {
-        return $this->hasMany(TransactionMessage::class);
+        return $this->hasMany(TransactionMessage::class)
+            ->orderBy('created_at', 'asc');
     }
 
     public function item()

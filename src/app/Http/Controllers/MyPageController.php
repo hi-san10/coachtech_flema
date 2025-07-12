@@ -14,6 +14,8 @@ use App\Http\Requests\CommentRequest;
 use App\Models\ShippingAddress;
 use App\Http\Requests\AddressChangeRequest;
 use App\Models\Transaction;
+use App\Models\TransactionMessage;
+use Illuminate\Support\Facades\DB;
 
 class MyPageController extends Controller
 {
@@ -56,20 +58,25 @@ class MyPageController extends Controller
         }elseif ($prm == 'buy'){
             $items = Item::where('shipping_address_id', $profile->id)->get();
         }elseif ($prm == 'transaction'){
-            // $items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
-// 処理見直し
-            $items = Transaction::with('transaction_messages', 'item')->whereHas('item', function($query)
-            {
-                $profile = Profile::where('user_id', Auth::id())->first();
+            $baseQuery = DB::table('Transactions')
+                ->where('buyer_id', $profile->id)->orWhere('seller_id', $profile->id)->where('is_completion', 'false')
+                ->join('transaction_messages', 'transactions.id', '=', 'transaction_messages.transaction_id')
+                ->join('items', 'transactions.item_id', '=', 'items.id')
+                ->select(
+                    'transactions.*',
+                    'transaction_messages.created_at as message_created_at',
+                    'items.name as name',
+                    'items.shipping_address_id as shipping_address_id',
+                    'items.image as image',
+                    'items.storage_image as storage_image',
+                    DB::raw('ROW_NUMBER() OVER (PARTITION BY transactions.item_id ORDER BY transaction_messages.created_at DESC) as row_num')
+                );
 
-                $query->where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id());
-            })->where('is_completion', 'false')->whereHas('transaction_messages', function($query)
-            {
-                $query->where('user_id', '<>', Auth::id())->orWhere('user_id', Auth::id());
-            })->latest()->get();
-            // ->join('items', 'transactions.item_id', '=', 'items.id')->get();
-            // Transaction::where('is_completion', 'false')->get();
-            // dd($items);
+            $items = DB::table(DB::raw("({$baseQuery->toSql()}) as sub"))
+                ->mergeBindings($baseQuery)
+                ->where('row_num', 1)
+                ->orderBy('message_created_at', 'desc')
+                ->get();
         }else{
             $items = Item::where('user_id', Auth::id())->get();
         }
