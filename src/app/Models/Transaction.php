@@ -26,4 +26,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function evaluation()
+    {
+        return $this->hasOne(Evaluation::class);
+    }
 }

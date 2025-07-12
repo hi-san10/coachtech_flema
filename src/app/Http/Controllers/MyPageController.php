@@ -65,7 +65,8 @@ class MyPageController extends Controller
                 })->count();
         }elseif ($prm == 'transaction'){
             $baseQuery = DB::table('Transactions')
-                ->where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)->where('is_completion', 'false')
+                ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+                ->orWhere([['seller_id', $prf_id], ['seller_completion', 'false']])
                 ->join('transaction_messages', 'transactions.id', '=', 'transaction_messages.transaction_id')
                 ->join('items', 'transactions.item_id', '=', 'items.id')
                 ->select(
@@ -86,6 +87,7 @@ class MyPageController extends Controller
                 ->orderBy('message_created_at', 'desc')
                 ->get();
             $total_message = $items->sum('other_user_message_count');
+            // dd($items);
         }else{
             $items = Item::where('user_id', $user_id)->get();
             $total_message = Transaction::where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)
@@ -96,7 +98,9 @@ class MyPageController extends Controller
         }
 
         $user = Profile::where('user_id', $user_id)->first();
-        $message_count = Transaction::withCount('transaction_messages')->where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)->where('is_completion', 'false')->get();
+        $message_count = Transaction::withCount('transaction_messages')
+            ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+            ->orWhere([['seller_id', $prf_id], ['seller_completion', 'false']])->get();
 
         return view('mypage', compact('user', 'items', 'prm', 'message_count', 'total_message'));
     }
