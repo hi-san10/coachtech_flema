@@ -8,6 +8,7 @@ use App\Http\Controllers\NiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransactionController;
 use App\Models\TransactionMessage;
+use Illuminate\Database\Events\TransactionCommitted;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,3 +78,7 @@ Route::post('/transaction/post/{item_id}', [TransactionController::class, 'post'
 Route::patch('/transaction/post/update/{message_id}', [TransactionController::class, 'update'])->name('update_message');
 
 Route::get('/transaction/post/delete{message_id}', [TransactionController::class, 'delete'])->name('delete_message');
+
+// Route::get('/transaction/end/{transaction_id}/{item_id}/{shipping_id}', [TransactionController::class, 'transactionEnd'])->name('transaction_end');
+
+Route::post('transaction/evaluation/{transaction_id}', [TransactionController::class, 'evaluation'])->name('evaluation');

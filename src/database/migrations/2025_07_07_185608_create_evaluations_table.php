@@ -16,7 +16,7 @@ class CreateEvaluationsTable extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('profile_id')->constrained()->cascadeOnDelete();
             $table->integer('point');
             $table->timestamps();
         });

@@ -21,7 +21,26 @@
             @else
             <img src="{{ $item->user->profile->image }}" alt="" class="user__image">
             <h1 class="user__name">{{ $item->user->profile->name }}さんとの取引画面</h1>
-            <a href="">取引を完了する</a>
+            <a href="#evaluation">取引を完了する</a>
+            <div class="evaluation" id="evaluation">
+                <p>取引が完了しました。</p>
+                <small>今回の取引相手はどうでしたか？</small>
+                <form action="{{ route('evaluation', ['transaction_id' => $transaction->id]) }}" method="post">
+                    @csrf
+                    <input type="radio" name="point" class="point-star__input" id="star1" value="1">
+                    <label for="star1" class="point-star__label">☆</label>
+                    <input type="radio" name="point" class="point-star__input" id="star2" value="2">
+                    <label for="star2" class="point-star__label">☆</label>
+                    <input type="radio" name="point" class="point-star__input" id="star3" value="3">
+                    <label for="star3" class="point-star__label">☆</label>
+                    <input type="radio" name="point" class="point-star__input" id="star4" value="4">
+                    <label for="star4" class="point-star__label">☆</label>
+                    <input type="radio" name="point" class="point-star__input" id="star5" value="5">
+                    <label for="star5" class="point-star__label">☆</label>
+                    <input type="submit" class="submit">
+                </form>
+
+            </div>
             @endif
         </div>
         <div class="item-info">

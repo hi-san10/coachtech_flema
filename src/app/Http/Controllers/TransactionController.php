@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\TransactionMessage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransactionMessageRequest;
+use App\Models\Evaluation;
 
 class TransactionController extends Controller
 {
@@ -19,9 +20,10 @@ class TransactionController extends Controller
         $shipping_address = ShippingAddress::with('profile')->where('id', $request->shipping_id)->first();
 
         $profile = Profile::where('user_id', Auth::id())->first();
-        $transaction_items = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->get();
 
-        $transaction = Transaction::where('item_id', $item->id)->first();
+        $transaction_items = Item::where('item_id', '!=', $item->id)->where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('buyer_completion', 'false')->get();
+
+        $transaction = Transaction::with('item')->where('item_id', $item->id)->first();
         $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();
         if ($last_message){
             $transaction_messages = TransactionMessage::with('user.profile')->where('id', '<>', $last_message->id)->where('transaction_id', $transaction->id)->get();
@@ -30,7 +32,7 @@ class TransactionController extends Controller
             $transaction_messages = null;
         }
 
-        return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'last_message', 'transaction_messages'));
+        return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'last_message', 'transaction_messages', 'transaction'));
     }
 
     public function post(TransactionMessageRequest $request)
@@ -62,5 +64,29 @@ class TransactionController extends Controller
             ->delete();
 
         return redirect()->route('mypage', ['page' => 'transaction']);
+    }
+
+    public function transactionEnd(Request $request)
+    {
+        Transaction::where('id', $request->transaction_id)
+            ->update(['buyer_completion' => true]);
+
+        return redirect()->route('transaction_top', ['item_id' => $request->item_id, 'shipping_id' => $request->shipping_id]);
+    }
+
+    public function evaluation(Request $request)
+    {
+        $transaction = Transaction::find($request->transaction_id);
+
+        Transaction::where('id', $transaction->id)
+            ->update(['buyer_completion' => true]);
+
+        Evaluation::create([
+            'transaction_id' => $transaction->id,
+            'profile_id' => $transaction->seller_id,
+            'point' => $request->point
+        ]);
+
+        return redirect()->route('mypage');
     }
 }

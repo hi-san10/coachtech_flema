@@ -11,7 +11,7 @@ class Evaluation extends Model
 
     protected $fillable = [
         'transaction_id',
-        'user_id',
+        'profile_id',
         'point'
     ];
 }
