@@ -17,4 +17,9 @@ class Profile extends Model
         'building_name',
         'image'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

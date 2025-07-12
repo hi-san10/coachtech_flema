@@ -11,6 +11,8 @@ use App\Models\TransactionMessage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransactionMessageRequest;
 use App\Models\Evaluation;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompletedMail;
 
 class TransactionController extends Controller
 {
@@ -86,6 +88,11 @@ class TransactionController extends Controller
             'profile_id' => $transaction->seller_id,
             'point' => $request->point
         ]);
+
+        $profile = Profile::with('user')->where('id', $transaction->seller_id)->first();
+        $user_email = $profile->user->email;
+
+        Mail::to($user_email)->send(new TransactionCompletedMail($user_email));
 
         return redirect('/');
     }
