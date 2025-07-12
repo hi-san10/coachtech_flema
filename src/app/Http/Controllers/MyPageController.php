@@ -49,17 +49,23 @@ class MyPageController extends Controller
 
     public function mypage(Request $request)
     {
-        $profile = Profile::where('user_id', Auth::id())->first();
+        $user_id = Auth::id();
+        $profile = Profile::where('user_id', $user_id)->first();
+        $prf_id = $profile->id;
         $prm = $request->page;
 
         if(!$profile)
         {
             return redirect('/mypage/profile');
         }elseif ($prm == 'buy'){
-            $items = Item::where('shipping_address_id', $profile->id)->get();
+            $items = Item::where('shipping_address_id', $prf_id)->get();
+            $total_message = Transaction::where('buyer_id', $prf_id)->orWhere('seller_id', $profile->id)
+                ->whereHas('transaction_messages', function ($query) {
+                    $query->where('user_id', '!=', Auth::id());
+                })->count();
         }elseif ($prm == 'transaction'){
             $baseQuery = DB::table('Transactions')
-                ->where('buyer_id', $profile->id)->orWhere('seller_id', $profile->id)->where('is_completion', 'false')
+                ->where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)->where('is_completion', 'false')
                 ->join('transaction_messages', 'transactions.id', '=', 'transaction_messages.transaction_id')
                 ->join('items', 'transactions.item_id', '=', 'items.id')
                 ->select(
@@ -69,6 +75,8 @@ class MyPageController extends Controller
                     'items.shipping_address_id as shipping_address_id',
                     'items.image as image',
                     'items.storage_image as storage_image',
+                    DB::raw("SUM(CASE WHEN transaction_messages.user_id != {$user_id} THEN 1 ELSE 0 END)
+                    OVER (PARTITION BY transactions.id) AS other_user_message_count") ,
                     DB::raw('ROW_NUMBER() OVER (PARTITION BY transactions.item_id ORDER BY transaction_messages.created_at DESC) as row_num')
                 );
 
@@ -77,15 +85,20 @@ class MyPageController extends Controller
                 ->where('row_num', 1)
                 ->orderBy('message_created_at', 'desc')
                 ->get();
+            $total_message = $items->sum('other_user_message_count');
         }else{
-            $items = Item::where('user_id', Auth::id())->get();
+            $items = Item::where('user_id', $user_id)->get();
+            $total_message = Transaction::where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)
+                ->whereHas('transaction_messages', function ($query)
+                {
+                    $query->where('user_id', '!=', Auth::id());
+                })->count();
         }
 
-        $user = Profile::where('user_id', Auth::id())->first();
-        $count = Item::where('shipping_address_id', $profile->id)->orWhere('user_id', Auth::id())->join('transactions', 'items.id', '=', 'transactions.item_id')->where('is_completion', 'false')->count();
+        $user = Profile::where('user_id', $user_id)->first();
+        $message_count = Transaction::withCount('transaction_messages')->where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)->where('is_completion', 'false')->get();
 
-
-        return view('mypage', compact('user', 'items', 'prm', 'count'));
+        return view('mypage', compact('user', 'items', 'prm', 'message_count', 'total_message'));
     }
 
     public function image_update(ProfileRequest $request)

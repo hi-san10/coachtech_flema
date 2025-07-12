@@ -17,18 +17,19 @@
                 @if($prm == 'buy')
                 <a class="list__link sell__link" href="{{ route('mypage') }}?page=sell">出品した商品</a>
                 <a class="list__link" href="{{ route('mypage') }}?page=buy" style="color: red">購入した商品</a>
-                <a class="list__link" href="{{ route('mypage') }}?page=transaction">取引中の商品<span>{{ $count }}</span></a>
+                <a class="list__link" href="{{ route('mypage') }}?page=transaction">取引中の商品<span>{{ $total_message }}</span></a>
                 @elseif ($prm == 'transaction')
                 <a class="list__link sell__link" href="{{ route('mypage') }}?page=sell">出品した商品</a>
                 <a class="list__link" href="{{ route('mypage') }}?page=buy">購入した商品</a>
-                <a class="list__link" href="{{ route('mypage') }}?page=transaction" style="color: red">取引中の商品<span class="transaction_count">{{ $count }}</span></a>
+                <a class="list__link" href="{{ route('mypage') }}?page=transaction" style="color: red">取引中の商品<span class="transaction_count">{{ $total_message }}</span></a>
                 @else
                 <a class="list__link sell__link" href="{{ route('mypage') }}?page=sell" style="color: red">出品した商品</a>
                 <a class="list__link" href="{{ route('mypage') }}?page=buy">購入した商品</a>
-                <a class="list__link" href="{{ route('mypage') }}?page=transaction">取引中の商品<span>{{ $count }}</span></a>
+                <a class="list__link" href="{{ route('mypage') }}?page=transaction">取引中の商品<span>{{ $total_message }}</span></a>
                 @endif
                 <p class="list__border"></p>
             </div>
+            <!-- 取引中の商品 -->
             <div class="items">
                 @if ($prm == 'transaction')
                 @foreach($items as $item)
@@ -43,9 +44,12 @@
                     </a>
                     @endif
                     <p class="item_name">{{ $item->name }}</p>
+<!-- メッセージカウント数のcss -->
+                    <p>{{ $item->other_user_message_count }}</p>
                 </div>
                 @endforeach
                 @else
+                <!-- 出品、購入した商品 -->
                 @foreach($items as $item)
                 <div class="sell-item">
                     @if($item->image)
