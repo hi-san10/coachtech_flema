@@ -4,6 +4,29 @@
     margin-top: 50px;
 }
 
+.user-name__item {
+    text-align: center;
+    margin-left: 100px;
+}
+
+.evaluation_average_point {
+    font-size: xxx-large;
+}
+
+.star__item {
+    display: flex;
+}
+
+.gold_star {
+    color: gold;
+    font-size: x-large;
+}
+
+.gray_star {
+    color: gray;
+    font-size: x-large;
+}
+
 .img {
     width: 150px;
     height: 150px;
@@ -14,7 +37,6 @@
 .name {
     font-size: 30px;
     font-weight: bold;
-    margin-left: 100px;
 }
 
 .setting__link {

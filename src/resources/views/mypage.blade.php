@@ -9,8 +9,16 @@
     <div class="mypage-content">
         <div class="mypage-user">
             <div class="user__image">
-                <img class="img" src="{{ asset($user->image) }}" alt="">
-                <p class="name">{{ $user->name }}</p>
+                <img class="img" src="{{ asset($profile->image) }}" alt="">
+                <div class="user-name__item">
+                    <p class="name">{{ $profile->name }}</p>
+                    @if ($evaluation_average_point > 0)
+                    <div class="star__item">
+                        <span class="gold_star">@for ($i = 1; $i <= $evaluation_average_point; $i++)★@endfor</span>
+                        <span class="gray_star">@for ($i = $evaluation_average_point+1; $i <= 5; $i++)★@endfor</span>
+                    </div>
+                    @endif
+                </div>
                 <a class="setting__link" href="{{ route('setting', ['id' => Auth::id()]) }}">プロフィールを編集</a>
             </div>
             <div class="my-item__list">
@@ -44,7 +52,7 @@
                     </a>
                     @endif
                     <p class="item_name">{{ $item->name }}</p>
-<!-- メッセージカウント数のcss -->
+                    <!-- メッセージカウント数のcss -->
                     <p>{{ $item->other_user_message_count }}</p>
                 </div>
                 @endforeach

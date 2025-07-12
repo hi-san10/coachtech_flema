@@ -37,7 +37,7 @@ class ProfilesTableSeeder extends Seeder
             'name' => 'user3',
             'post_code' => '333-3333',
             'address' => 'italy',
-            'image' => '/images/user2.jpg'
+            'image' => '/images/user3.jpg'
         ];
         DB::table('profiles')->insert($content);
     }

@@ -15,6 +15,7 @@ use App\Models\ShippingAddress;
 use App\Http\Requests\AddressChangeRequest;
 use App\Models\Transaction;
 use App\Models\TransactionMessage;
+use App\Models\Evaluation;
 use Illuminate\Support\Facades\DB;
 
 class MyPageController extends Controller
@@ -59,7 +60,8 @@ class MyPageController extends Controller
             return redirect('/mypage/profile');
         }elseif ($prm == 'buy'){
             $items = Item::where('shipping_address_id', $prf_id)->get();
-            $total_message = Transaction::where('buyer_id', $prf_id)->orWhere('seller_id', $profile->id)
+            $total_message = Transaction::where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
                 ->whereHas('transaction_messages', function ($query) {
                     $query->where('user_id', '!=', Auth::id());
                 })->count();
@@ -87,22 +89,25 @@ class MyPageController extends Controller
                 ->orderBy('message_created_at', 'desc')
                 ->get();
             $total_message = $items->sum('other_user_message_count');
-            // dd($items);
         }else{
             $items = Item::where('user_id', $user_id)->get();
-            $total_message = Transaction::where('buyer_id', $prf_id)->orWhere('seller_id', $prf_id)
+            $total_message = Transaction::where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
+                ->orWhere([['seller_id', $profile->id], ['seller_completion', 'false']])
                 ->whereHas('transaction_messages', function ($query)
                 {
                     $query->where('user_id', '!=', Auth::id());
                 })->count();
         }
 
-        $user = Profile::where('user_id', $user_id)->first();
         $message_count = Transaction::withCount('transaction_messages')
             ->where([['buyer_id', $prf_id], ['buyer_completion', 'false']])
             ->orWhere([['seller_id', $prf_id], ['seller_completion', 'false']])->get();
 
-        return view('mypage', compact('user', 'items', 'prm', 'message_count', 'total_message'));
+        $evaluation = Evaluation::where('profile_id', $prf_id)->get();
+        $evaluation_point = $evaluation->avg('point');
+        $evaluation_average_point = round($evaluation_point);
+
+        return view('mypage', compact('profile', 'items', 'prm', 'message_count', 'total_message', 'evaluation_average_point'));
     }
 
     public function image_update(ProfileRequest $request)
