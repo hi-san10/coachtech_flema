@@ -73,8 +73,14 @@
         <div class="message-send_bar">
             <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form" method="post">
                 @csrf
-                <input type="text" name="message" class="message" placeholder="取引メッセージを入力してください">
-                <input type="file" class="img">
+                @error('message')
+                <p class="error__msg">{{ $message }}</p>
+                @enderror
+                <input id="chat_input" name="message" class="message">
+                @error('image')
+                <p class="error__msg">{{ $message }}</p>
+                @enderror
+                <input type="file" name="image" class="img">
                 <input type="submit">
             </form>
         </div>

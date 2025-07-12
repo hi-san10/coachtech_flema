@@ -9,6 +9,7 @@ use App\Models\ShippingAddress;
 use App\Models\Transaction;
 use App\Models\TransactionMessage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TransactionMessageRequest;
 
 class TransactionController extends Controller
 {
@@ -22,7 +23,6 @@ class TransactionController extends Controller
 
         $transaction = Transaction::where('item_id', $item->id)->first();
         $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();
-        // dd($last_message);
         if ($last_message){
             $transaction_messages = TransactionMessage::with('user.profile')->where('id', '<>', $last_message->id)->where('transaction_id', $transaction->id)->get();
 
@@ -33,7 +33,7 @@ class TransactionController extends Controller
         return view('transaction_top', compact('item', 'shipping_address', 'transaction_items', 'last_message', 'transaction_messages'));
     }
 
-    public function post(Request $request)
+    public function post(TransactionMessageRequest $request)
     {
         $item = Item::where('id', $request->item_id)->first();
         $transaction = Transaction::where('item_id', $item->id)->first();
@@ -48,7 +48,7 @@ class TransactionController extends Controller
         return redirect()->route('transaction_top', ['item_id' => $item->id, 'shipping_id' => $item->shipping_address_id]);
     }
 
-    public function update(Request $request)
+    public function update(TransactionMessageRequest $request)
     {
         TransactionMessage::where('id', $request->message_id)
             ->update(['message' => $request->update_message]);
