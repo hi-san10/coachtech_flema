@@ -2,39 +2,6 @@
 
 ## アイテムの出品と購入ができるフリマアプリ
 
-## 機能一覧
-・ 会員登録
-
-・ 会員登録時にメールによる本人認証
-
-・ ログイン
-
-・ ログアウト
-
-・ 商品一覧取得
-
-・ 商品詳細情報取得
-
-・ 商品を名前(部分一致)で検索
-
-・ 商品購入
-
-・ 商品出品
-
-・ 商品をお気に入り(いいね)できる
-
-・ 商品にコメントできる(ログインユーザーのみ)
-
-・ ユーザー別のマイページ(自身が購入、出品した商品一覧)
-
-・ ログインユーザーのいいねした商品一覧取得(マイリスト)
-
-・ 初回ログイン後プロフィール設定
-
-・ プロフィール情報変更
-
-・ 商品購入時、配送先住所追加
-
 ## 環境構築
 
 ### Dockerビルド
@@ -95,7 +62,9 @@
 
 5. php artisan migrate
 
-6. php artisan db:seed
+6. php artisan storage:link
+
+7. php artisan db:seed
 
 
 ・ 商品のダミーデータ10件分
@@ -106,8 +75,20 @@
 
 ・ 商品とカテゴリーを結びつけた中間テーブルのダミーデータ17件分
 
-・ ユーザーのダミーデータ1件分↓
-![Image](https://github.com/user-attachments/assets/fef256f3-d5c0-446a-8505-87e1527a9970)
+・ ユーザーのダミーデータ3件分↓
+    name: user1
+    email: user1@mail.com
+    password: 11111111
+
+    name: user2
+    email: user2@mail.com
+    password: 22222222
+
+    name: user3
+    email: user3@mail.com
+    password: 33333333
+
+・ ユーザーに結びつけてあるプロフィールデータ3件分
 
 ## 使用技術
 
@@ -119,7 +100,7 @@
 
 ## ER図
 
-![Image](https://github.com/user-attachments/assets/cf635c52-c126-42c2-a8cc-f72b315c29b3)
+![Image](https://github.com/user-attachments/assets/94eb9545-7af8-44cd-8eb1-af65e80f28a0)
 
 ## テーブル仕様書
 ![Image](https://github.com/user-attachments/assets/f4395c14-6650-43fd-a1a6-efe420b14921)
@@ -131,6 +112,10 @@
 ![Image](https://github.com/user-attachments/assets/bb529ba1-1b98-44c4-ae50-abc6bae9b15c)
 
 ![Image](https://github.com/user-attachments/assets/3178cf4f-0999-4b5e-b2d3-487d01755437)
+
+![Image](https://github.com/user-attachments/assets/d9483be6-d20a-4c14-bb55-155a8221215e)
+
+![Image](https://github.com/user-attachments/assets/54565012-805c-4d53-af6e-385afd1ef3b0)
 
 ## URL
 
