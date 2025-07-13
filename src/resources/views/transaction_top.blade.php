@@ -6,27 +6,6 @@
 
 @section('content')
 <div class="transaction_top-container">
-    <!-- 商品購入者が取引完了後に表示 -->
-    <!-- @if ($transaction->buyer_completion == true)
-    <div class="evaluation" id="evaluation">
-        <p>取引が完了しました。</p>
-        <small>今回の取引相手はどうでしたか？</small>
-        <form action="{{ route('seller_evaluation', ['transaction_id' => $transaction->id]) }}" method="post">
-            @csrf
-            <input type="radio" name="point" class="point-star__input" id="star5" value="5">
-            <label for="star5" class="point-star__label">★</label>
-            <input type="radio" name="point" class="point-star__input" id="star4" value="4">
-            <label for="star4" class="point-star__label">★</label>
-            <input type="radio" name="point" class="point-star__input" id="star3" value="3">
-            <label for="star3" class="point-star__label">★</label>
-            <input type="radio" name="point" class="point-star__input" id="star2" value="2">
-            <label for="star2" class="point-star__label">★</label>
-            <input type="radio" name="point" class="point-star__input" id="star1" value="1">
-            <label for="star1" class="point-star__label">★</label>
-            <input type="submit" class="submit">
-        </form>
-    </div>
-    @endif -->
     <!-- その他の取引 -->
     <div class="sidebar">
         <p class="sidebar-title">その他の取引</p>
@@ -101,13 +80,16 @@
                             <p class="message-user__name">{{ $last_message->user->profile->name }}</p>
                         </div>
                         <textarea rows="1" cols="130" type="text" name="update_message" class="update_message" value="{{ $last_message->message }}">{{ $last_message->message }}</textarea>
+                        @if ($last_message->message == '商品を購入しました')
+                        @else
                         <div class="message-inner">
                             <button class="message-inner__btn" for="update__form">編集</button>
                             <a href="{{ route('delete_message', ['message_id' => $last_message->id]) }}" class="message-inner__btn">削除</a>
                         </div>
+                        @endif
                     </div>
                     @if (!is_null($last_message->image))
-                    <img src="{{ asset($last_message->image) }}" class="transaction-item__img--other" alt="">
+                    <img src="{{ asset($last_message->image) }}" class="transaction-item__img" alt="">
                     @endif
                 </form>
                 @endif

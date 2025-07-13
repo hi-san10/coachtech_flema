@@ -1,6 +1,5 @@
 .transaction_top-container {
     display: flex;
-    /* padding-bottom: 50px; */
 }
 
 .sidebar {
@@ -208,10 +207,6 @@ input[type="file"] {
     margin-left: 10px;
 }
 
-/* input[type="submit"] {
-    display: none;
-} */
-
 .submit {
     margin-left: 20px;
 }
@@ -294,7 +289,6 @@ input[type="radio"] {
 }
 
 .evaluation__form {
-    /* text-align: center; */
     width: 80%;
     margin: auto;
     display: flex;

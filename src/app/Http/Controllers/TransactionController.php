@@ -24,9 +24,9 @@ class TransactionController extends Controller
         $profile = Profile::where('user_id', Auth::id())->first();
 
         $transaction_items = Item::join('transactions', 'items.id', '=', 'transactions.item_id')
-            ->where([['seller_id', $profile->id], ['buyer_completion', 'false']])
-            ->orWhere([['buyer_id', $profile->id], ['seller_completion', 'false']])
-            ->where('item_id', '!=', $item->id)->get();
+            ->where([['seller_id', $profile->id], ['item_id', '!=', $item->id], ['buyer_completion', 'false']])
+            ->orWhere([['buyer_id', $profile->id], ['item_id', '!=', $item->id], ['seller_completion', 'false']])
+            ->get();
 
         $transaction = Transaction::with('item')->where('item_id', $item->id)->first();
         $last_message = TransactionMessage::with('user.profile')->where('transaction_id', $transaction->id)->latest()->first();
@@ -91,30 +91,32 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($request->transaction_id);
 
-        $profile = Profile::with('user')->where('id', $transaction->seller_id)->first();
+        $profile = Profile::with('user')->where('user_id', Auth::id())->first();
+        $seller = Item::with('user')->where('id', $transaction->item_id)->first();
 
-        if ($transaction->seller_id == $profile->id) {
-            Transaction::where('id', $transaction->id)
-                ->update(['seller_completion' => true]);
+        if ($transaction->buyer_id == $profile->id) {
+        Transaction::where('id', $transaction->id)
+            ->update(['buyer_completion' => true]);
 
-            Evaluation::create([
-                'transaction_id' => $transaction->id,
-                'profile_id' => $transaction->buyer_id,
-                'point' => $request->point
-            ]);
-            $user_email = $profile->user->email;
+        Evaluation::create([
+            'transaction_id' => $transaction->id,
+            'profile_id' => $transaction->seller_id,
+            'point' => $request->point
+        ]);
+        $user_email = $seller->user->email;
 
-            Mail::to($user_email)->send(new TransactionCompletedMail($user_email));
+        Mail::to($user_email)->send(new TransactionCompletedMail($user_email));
         }else{
-            Transaction::where('id', $transaction->id)
-                ->update(['buyer_completion' => true]);
+        Transaction::where('id', $transaction->id)
+            ->update(['seller_completion' => true]);
 
-            Evaluation::create([
-                'transaction_id' => $transaction->id,
-                'profile_id' => $transaction->seller_id,
-                'point' => $request->point
-            ]);
+        Evaluation::create([
+            'transaction_id' => $transaction->id,
+            'profile_id' => $transaction->buyer_id,
+            'point' => $request->point
+        ]);
         }
+
         return redirect('/');
     }
 }
