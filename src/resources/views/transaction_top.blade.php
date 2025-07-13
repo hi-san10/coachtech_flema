@@ -116,7 +116,22 @@
                     </tr>
                     <tr>
                         <td class="td-textarea">
-                            <textarea rows="1" cols="130" name="message" class="message" placeholder="取引メッセージを記入してください"></textarea>
+                            <textarea rows="1" cols="130" name="message" class="message" id="msg" placeholder="取引メッセージを記入してください"></textarea>
+                            <script>
+                                const textarea = document.getElementById('msg');
+                                const STORAGE_KEY = 'msg_draft';
+
+                                window.addEventListener('DOMContentLoaded', () => {
+                                    const saved = localStorage.getItem(STORAGE_KEY);
+                                    if (saved) {
+                                        textarea.value = saved;
+                                    }
+                                });
+
+                                textarea.addEventListener('input', () => {
+                                    localStorage.setItem(STORAGE_KEY, textarea.value);
+                                });
+                            </script>
                         </td>
                         <td class="td-img__label">
                             <label for="img" class="img__label">画像を追加</label>
