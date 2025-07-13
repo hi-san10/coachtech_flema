@@ -118,22 +118,22 @@
                         <td class="td-textarea">
                             <textarea rows="1" cols="130" name="message" class="message" id="msg" placeholder="取引メッセージを記入してください"></textarea>
                             <script>
+                                const MEMO_KEY = 'draft_msg';
                                 const textarea = document.getElementById('msg');
-                                const STORAGE_KEY = 'msg_draft';
+
+                                textarea.addEventListener('input', () => {
+                                    localStorage.setItem(MEMO_KEY, textarea.value);
+                                })
 
                                 window.addEventListener('DOMContentLoaded', () => {
-                                    const saved = localStorage.getItem(STORAGE_KEY);
+                                    const saved = localStorage.getItem(MEMO_KEY);
                                     if (saved) {
                                         textarea.value = saved;
                                     }
                                 });
 
-                                textarea.addEventListener('input', () => {
-                                    localStorage.setItem(STORAGE_KEY, textarea.value);
-                                });
-
                                 function clearLocalStorage() {
-                                    localStorage.removeItem(STORAGE_KEY, textarea.value);
+                                    localStorage.removeItem(MEMO_KEY);
                                 }
                             </script>
                         </td>
