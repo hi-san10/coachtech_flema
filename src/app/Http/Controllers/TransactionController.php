@@ -25,7 +25,7 @@ class TransactionController extends Controller
 
         $transaction_items = Item::join('transactions', 'items.id', '=', 'transactions.item_id')
             ->where([['seller_id', $profile->id], ['item_id', '!=', $item->id], ['buyer_completion', 'false']])
-            ->orWhere([['buyer_id', $profile->id], ['item_id', '!=', $item->id], ['seller_completion', 'false']])
+            ->orWhere([['buyer_id', $profile->id], ['buyer_completion', 'false'], ['item_id', '!=', $item->id]])
             ->get();
 
         $transaction = Transaction::with('item')->where('item_id', $item->id)->first();

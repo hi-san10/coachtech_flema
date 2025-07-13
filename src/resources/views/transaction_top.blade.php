@@ -131,6 +131,10 @@
                                 textarea.addEventListener('input', () => {
                                     localStorage.setItem(STORAGE_KEY, textarea.value);
                                 });
+
+                                function clearLocalStorage() {
+                                    localStorage.removeItem(STORAGE_KEY, textarea.value);
+                                }
                             </script>
                         </td>
                         <td class="td-img__label">
