@@ -307,3 +307,21 @@ input[type="radio"] {
     height: 50px;
 }
 
+@media screen and (max-width: 850px){
+    .user__name {
+        font-size: large;
+    }
+
+    .evaluation__link {
+        width: 25%;
+    }
+
+    .message {
+        width: 50%;
+    }
+
+    .evaluation-content, .seller-evaluation-content {
+        left: 30%;
+    }
+}
+
