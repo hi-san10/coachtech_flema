@@ -31,7 +31,7 @@
                 @if ($item->image)
                 <img src="{{ $item->image }}" alt="" class="item__image">
                 @else
-                <img src="{{ $item->storage_image }}" alt="" class="item__image">
+                <img src="{{ asset($item->storage_image) }}" alt="" class="item__image">
                 @endif
             </div>
             <div class="item-info__box">
@@ -99,7 +99,7 @@
         </div>
         <!-- メッセージ送信欄 -->
         <div class="message-send_bar">
-            <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form" method="post" enctype="multipart/form-data">
+            <form action="{{ route('post', ['item_id' => $item->id]) }}" class="message__form" method="post" enctype="multipart/form-data" id="form">
                 @csrf
                 <table>
                     <tr>
@@ -132,9 +132,9 @@
                                     }
                                 });
 
-                                function clearLocalStorage() {
+                                document.getElementById('form').addEventListener('submit', () => {
                                     localStorage.removeItem(MEMO_KEY);
-                                }
+                                })
                             </script>
                         </td>
                         <td class="td-img__label">

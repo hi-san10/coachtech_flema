@@ -20,6 +20,7 @@ class ItemsTableSeeder extends Seeder
             'name' => '腕時計',
             'price' => '15000',
             'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+            'shipping_address_id' => 2,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg'
         ];
         DB::table('items')->insert($content);
@@ -30,6 +31,7 @@ class ItemsTableSeeder extends Seeder
             'name' => 'HDD',
             'price' => '5000',
             'detail' => '高速で信頼性の高いハードディスク',
+            'shipping_address_id' => 2,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg'
         ];
         DB::table('items')->insert($content);
@@ -60,6 +62,7 @@ class ItemsTableSeeder extends Seeder
             'name' => 'ノートPC',
             'price' => '45000',
             'detail' => '高性能なノートパソコン',
+            'shipping_address_id' => 3,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg'
         ];
         DB::table('items')->insert($content);
@@ -90,6 +93,7 @@ class ItemsTableSeeder extends Seeder
             'name' => 'タンブラー',
             'price' => '500',
             'detail' => '使いやすいタンブラー',
+            'shipping_address_id' => 1,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg'
         ];
         DB::table('items')->insert($content);
@@ -100,6 +104,7 @@ class ItemsTableSeeder extends Seeder
             'name' => 'コーヒーミル',
             'price' => '4000',
             'detail' => '手動のコーヒーミル',
+            'shipping_address_id' => 3,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg'
         ];
         DB::table('items')->insert($content);
@@ -110,6 +115,7 @@ class ItemsTableSeeder extends Seeder
             'name' => 'メイクセット',
             'price' => '2500',
             'detail' => '便利なメイクアップセット',
+            'shipping_address_id' => 3,
             'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg'
         ];
         DB::table('items')->insert($content);
