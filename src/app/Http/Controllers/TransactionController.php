@@ -68,7 +68,7 @@ class TransactionController extends Controller
         TransactionMessage::where('id', $request->message_id)
             ->update(['message' => $request->update_message]);
 
-        return redirect()->route('mypage', ['page' => 'transaction']);
+        return back();
     }
 
     public function delete(Request $request)
@@ -76,7 +76,7 @@ class TransactionController extends Controller
         TransactionMessage::where('id', $request->message_id)
             ->delete();
 
-        return redirect()->route('mypage', ['page' => 'transaction']);
+        return back();
     }
 
     public function transactionEnd(Request $request)
