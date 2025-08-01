@@ -127,8 +127,8 @@
 }
 
 .transaction-item__img {
-    width: 50px;
-    height: 50px;
+    width: 300px;
+    height: 300px;
     margin-left: auto;
     margin-right: 100px;
     display: block;
@@ -136,8 +136,8 @@
 
 .transaction-item__img--other {
     display: block;
-    width: 50px;
-    height: 50px;
+    width: 300px;
+    height: 300px;
     margin-right: auto;
     margin-left: 100px;
 }
