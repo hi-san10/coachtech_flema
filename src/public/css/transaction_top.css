@@ -160,12 +160,18 @@ body {
     width: 90%;
 }
 
+.edit_message {
+    border: none;
+    text-align: left;
+    width: 90%;
+}
+
 .message-inner {
     text-align: right;
     width: 90%;
 }
 
-.message-content__inner, .other-user__message, .update_message {
+.message-content__inner, .other-user__message, .update_message, .edit_message {
     font-size: 16px;
 }
 
