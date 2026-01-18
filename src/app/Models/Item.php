@@ -45,4 +45,19 @@ class Item extends Model
     {
         return $this->hasOne(Transaction::class);
     }
+
+    public function scopeItemSearch($query, $word)
+    {
+        return $query->when($word, fn ($q) => $q->where('name', 'Like', '%'.$word.'%'));
+    }
+
+    public function scopeNice($query, $auth_id)
+    {
+        return $query->whereHas('nices', fn ($q) => $q->where('user_id', $auth_id));
+    }
+
+    public function scopeExcludeUser($query, $auth_id)
+    {
+        return $query->when($auth_id, fn ($q) => $q->where('user_id', '!=', $auth_id));
+    }
 }
