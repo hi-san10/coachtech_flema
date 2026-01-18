@@ -22,15 +22,12 @@ class ItemController extends Controller
         $prm = $request->page;
         $items = null;
 
-        if(Auth::check() && $prm == 'mylist')
-        {
+        if(Auth::check() && $prm == 'mylist') {
             $items = Item::select('id', 'name', 'image', 'storage_image', 'shipping_address_id')
-                ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-                ->whereHas('nices', fn ($query) => $query->where('user_id', Auth::id()))->get();
-        }else{
+                ->ItemSearch($word)->Nice(Auth::id())->get();
+        } else {
             $items = Item::select('id', 'name', 'image', 'storage_image', 'shipping_address_id')
-                ->when($word, fn ($query) => $query->where('name', 'like', '%'.$word.'%'))
-                ->when(Auth::check(), fn ($query) => $query->where('user_id', '!=', Auth::id()))->get();
+                ->ItemSearch($word)->ExcludeUser(Auth::id())->get();
         }
             return view('item_all', compact('items', 'prm', 'word'));
     }

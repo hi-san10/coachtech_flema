@@ -40,7 +40,7 @@ input[type="checkbox"] {
                 </svg>
             </div>
             <div class="search">
-                <form class="search__form" action="{{ route('index') }}?page=mylist">
+                <form class="search__form" action="{{ route('index') }}">
                     <input class="search__form-word" type="text" name="search_word" placeholder="     なにをお探しですか？">
                 </form>
             </div>
