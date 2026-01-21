@@ -32,22 +32,21 @@ class ItemController extends Controller
             return view('item_all', compact('items', 'prm', 'word'));
     }
 
-    public function item_detail(Request $request)
+    public function item_detail(Item $item)
     {
-        $item_id = $request->item_id;
-        $item = Item::with('condition', 'category')->whereId($item_id)->first();
+        $item->load('condition', 'category');
 
         $categories = $item->category->all();
 
         $nice = Nice::where([
             ['user_id', Auth::id()],
-            ['item_id', $item_id]
+            ['item_id', $item->id]
         ])->exists();
 
-        $nice_count = Nice::where('item_id', $item_id)->count();
-        $comment_count = Comment::where('item_id', $item_id)->count();
+        $nice_count = Nice::where('item_id', $item->id)->count();
+        $comment_count = Comment::where('item_id', $item->id)->count();
 
-        $comments = Comment::where('item_id', $item_id)->join('profiles', 'comments.user_id', '=', 'profiles.user_id')->get();
+        $comments = Comment::where('item_id', $item->id)->join('profiles', 'comments.user_id', '=', 'profiles.user_id')->get();
 
         return view('item', compact('item', 'categories', 'nice', 'nice_count', 'comment_count', 'comments'));
     }
@@ -101,9 +100,8 @@ class ItemController extends Controller
         return redirect('/')->with('sell_message', '商品の出品が完了しました');
     }
 
-    public function purchase_top(Request $request)
+    public function purchase_top(Item $item)
     {
-        $item = Item::where('id', $request->item_id)->first();
         $user = Profile::where('user_id', Auth::id())->first();
         $shipping_addresses = ShippingAddress::where('profile_id', Auth::id())->get();
 
@@ -115,10 +113,9 @@ class ItemController extends Controller
         return view('purchase', compact('item', 'user', 'shipping_addresses'));
     }
 
-    public function address_change_top(Request $request)
+    public function address_change_top(Item $item)
     {
         $user = Profile::where('user_id', Auth::id())->first();
-        $item = Item::whereId($request->item_id)->first();
 
         return view('address_change', compact('user', 'item'));
     }

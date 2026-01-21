@@ -30,7 +30,7 @@
         <p class="border"></p>
         <div class="user-address">
             <p class="purchase__txt shipping__txt">配送先</p>
-            <a class="change__link" href="{{ route('address_change_top', ['item_id' => $item->id]) }}">変更する</a>
+            <a class="change__link" href="{{ route('address_change_top', ['item' => $item->id]) }}">変更する</a>
             <p class="post_code">〒{{ $user->post_code }}</p>
             <p class="address">{{ $user->address }}<br>
             {{ $user->building_name }}</p>

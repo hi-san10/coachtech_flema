@@ -25,7 +25,7 @@
         @foreach($items as $item)
         @if(is_null($item->storage_image))
         <div class="item_all__item">
-            <a class="item_name" href="{{ route('item_detail', ['item_id' => $item->id]) }}">
+            <a class="item_name" href="{{ route('item_detail', ['item' => $item->id]) }}">
                 <img src="{{ $item->image }}" alt="" class="item__img">{{ $item->name }}
             </a>
             @if(!$item->shipping_address_id == null)

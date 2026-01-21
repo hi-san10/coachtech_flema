@@ -44,7 +44,7 @@
                 </div>
             </div>
             @if(is_null($item->shipping_address_id))
-            <a href="{{ route('purchase_top', ['item_id' => $item->id]) }}" class="purchase__link">購入手続きへ</a>
+            <a href="{{ route('purchase_top', ['item' => $item->id]) }}" class="purchase__link">購入手続きへ</a>
             @else
             @endif
             <div class="explanation">
