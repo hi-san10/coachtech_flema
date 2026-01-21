@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/sell', [ItemController::class, 'sell_top']);
 
-    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase_top'])->name('purchase_top');
+    Route::get('/purchase/{item}', [ItemController::class, 'purchase_top'])->name('purchase_top');
 
 });
 
@@ -49,7 +49,7 @@ Route::get('verification_email/resend/{verification_email}/{password}', [LoginCo
 
 Route::get('/verification_email/certification/{email}/{password}', [LoginController::class, 'certification'])->name('certification');
 
-Route::get('/item/{item_id}', [ItemController::class, 'item_detail'])->name('item_detail');
+Route::get('/item/{item}', [ItemController::class, 'item_detail'])->name('item_detail');
 
 Route::get('/verify/{email}', [LoginController::class, 'verify'])->name('verify');
 
@@ -65,7 +65,7 @@ Route::get('/nice/{item_id}', [NiceController::class, 'nice'])->name('nice');
 
 Route::post('/item/comment/{item_id}', [MyPageController::class, 'comment'])->name('comment');
 
-Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_change_top'])->name('address_change_top');
+Route::get('/purchase/address/{item}', [ItemController::class, 'address_change_top'])->name('address_change_top');
 
 Route::post('/shipping_address/{item_id}', [MyPageController::class, 'change_shipping_address'])->name('change_shipping_address');
 
